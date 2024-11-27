@@ -4,6 +4,9 @@
  */
 package GUI;
 
+import clases.DTO.CampoDTO;
+import javax.swing.DefaultComboBoxModel;
+
 /**
  *
  * @author Admin
@@ -15,6 +18,38 @@ public class DataConversion extends javax.swing.JFrame {
      */
     public DataConversion() {
         initComponents();
+        btnConcatenar.setEnabled(false);
+        btnMinuscula.setEnabled(false);
+        btnMayuscula.setEnabled(false);
+        btnExtraerF.setEnabled(false);
+        cmbIOpciones.setVisible(false);
+        btnConfirmarOperacion.setVisible(false);
+        DefaultComboBoxModel camposT =new DefaultComboBoxModel();
+
+        if(FormularioETL.camposSelectOrigen.isEmpty()){
+              int i = 0;
+                          
+                for (CampoDTO campo : MenuPrincipal.campos) {
+                    
+                     camposT.addElement(MenuPrincipal.campos.get(i).getColumnName()+" "+MenuPrincipal.campos.get(i).getDataType()
+                             +" "+MenuPrincipal.campos.get(i).getMaxLength());
+                    i++;
+                }
+        }else{
+              int i = 0;
+                          
+                for (CampoDTO campo : FormularioETL.camposSelectOrigen) {
+                    
+                     camposT.addElement(MenuPrincipal.campos.get(i).getColumnName()+" "+MenuPrincipal.campos.get(i).getDataType()
+                             +" "+MenuPrincipal.campos.get(i).getMaxLength());
+                    i++;
+                }
+        }
+        this.cmbCamposTran.setModel(camposT);
+
+        
+            
+                
     }
 
     /**
@@ -45,6 +80,11 @@ public class DataConversion extends javax.swing.JFrame {
 
         cmbCamposTran.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         cmbCamposTran.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbCamposTran.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbCamposTranActionPerformed(evt);
+            }
+        });
 
         btnMinuscula.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         btnMinuscula.setText("Convertir a minúscula");
@@ -72,6 +112,11 @@ public class DataConversion extends javax.swing.JFrame {
 
         btnConcatenar.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         btnConcatenar.setText("Concatenar");
+        btnConcatenar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConcatenarActionPerformed(evt);
+            }
+        });
 
         cmbIOpciones.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         cmbIOpciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -85,6 +130,11 @@ public class DataConversion extends javax.swing.JFrame {
 
         btnSalir.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         jLabel3.setText("***");
@@ -162,7 +212,9 @@ public class DataConversion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExtraerFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExtraerFActionPerformed
-        // TODO add your handling code here:
+          cmbIOpciones.setVisible(true);
+        btnConfirmarOperacion.setVisible(true);
+        btnConfirmarOperacion.setText("Extraer");
     }//GEN-LAST:event_btnExtraerFActionPerformed
 
     private void btnMinusculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinusculaActionPerformed
@@ -172,6 +224,64 @@ public class DataConversion extends javax.swing.JFrame {
     private void btnMayusculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMayusculaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnMayusculaActionPerformed
+
+    private void cmbCamposTranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCamposTranActionPerformed
+          String TipoCampos;
+           cmbIOpciones.setVisible(false);
+        btnConfirmarOperacion.setVisible(false);
+        if(FormularioETL.camposSelectOrigen.isEmpty()){
+           
+            TipoCampos = MenuPrincipal.campos.get(cmbCamposTran.getSelectedIndex()).getDataType();
+            if ("VARCHAR2".equals(TipoCampos) || "CHAR".equals(TipoCampos)) {
+                btnConcatenar.setEnabled(true);
+                btnMinuscula.setEnabled(true);
+                btnMayuscula.setEnabled(true);
+                btnExtraerF.setEnabled(false);
+
+            }else if("TIMESTAMP".equals(TipoCampos) || "DATE".equals(TipoCampos)){
+                btnConcatenar.setEnabled(false);
+                btnMinuscula.setEnabled(false);
+                btnMayuscula.setEnabled(false);
+                btnExtraerF.setEnabled(true);
+
+             }else{
+                  btnConcatenar.setEnabled(false);
+                btnMinuscula.setEnabled(false);
+                btnMayuscula.setEnabled(false);
+                btnExtraerF.setEnabled(false);
+
+            }
+ 
+       }else{
+                 TipoCampos = FormularioETL.camposSelectOrigen.get(cmbCamposTran.getSelectedIndex()).getDataType();
+            if ("VARCHAR2".equals(TipoCampos) || "CHAR".equals(TipoCampos)) {
+                btnConcatenar.setEnabled(false);
+                btnMinuscula.setEnabled(false);
+                btnMayuscula.setEnabled(false);
+                btnExtraerF.setEnabled(false);
+
+            }else if("TIMESTAMP".equals(TipoCampos) || "DATE".equals(TipoCampos)){
+                btnConcatenar.setEnabled(false);
+                btnMinuscula.setEnabled(false);
+                btnMayuscula.setEnabled(false);
+                btnExtraerF.setEnabled(true);
+
+             }
+       }
+        
+        
+    }//GEN-LAST:event_cmbCamposTranActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        
+        dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnConcatenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConcatenarActionPerformed
+         cmbIOpciones.setVisible(true);
+        btnConfirmarOperacion.setVisible(true);
+        btnConfirmarOperacion.setText("Concatenar Campo");
+    }//GEN-LAST:event_btnConcatenarActionPerformed
 
     /**
      * @param args the command line arguments

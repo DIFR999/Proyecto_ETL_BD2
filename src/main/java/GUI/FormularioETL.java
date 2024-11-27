@@ -33,6 +33,7 @@ public class FormularioETL extends javax.swing.JFrame {
         txaConsultaSQL.setEnabled(false);
         cmbTablas.setEnabled(false);
         btnEscogerCampos.setEnabled(false);
+        btnTransformar.setEnabled(false);
         
         
     }
@@ -209,6 +210,11 @@ public class FormularioETL extends javax.swing.JFrame {
 
         btnTransformar.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         btnTransformar.setText("Transformar campos");
+        btnTransformar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTransformarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlDataConversionLayout = new javax.swing.GroupLayout(pnlDataConversion);
         pnlDataConversion.setLayout(pnlDataConversionLayout);
@@ -348,6 +354,7 @@ public class FormularioETL extends javax.swing.JFrame {
                MenuPrincipal.campos = MenuPrincipal.camposPorTabla.obtenerCampos(CredecialesConexion.conOrigen, cmbTablas.getSelectedItem().toString());
                tablaSeleccionada= cmbTablas.getSelectedItem().toString();
                btnEscogerCampos.setEnabled(true);
+               btnTransformar.setEnabled(true);
             }
          }else if(jrbConsulta.isSelected()==true){
             try {	
@@ -382,9 +389,15 @@ public class FormularioETL extends javax.swing.JFrame {
 
     private void btnEscogerCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEscogerCamposActionPerformed
         FrmEscogerCampos frmEscogerC = new FrmEscogerCampos();      
-            frmEscogerC.setLocationRelativeTo(this);  // Centra la ventana con respecto a la ventana principal
-            frmEscogerC.setVisible(true);  // Mostrar la ventana
+        frmEscogerC.setLocationRelativeTo(this);  // Centra la ventana con respecto a la ventana principal
+        frmEscogerC.setVisible(true);  // Mostrar la ventana
     }//GEN-LAST:event_btnEscogerCamposActionPerformed
+
+    private void btnTransformarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransformarActionPerformed
+            DataConversion dataConversionFRM = new DataConversion();      
+            dataConversionFRM.setLocationRelativeTo(this);  // Centra la ventana con respecto a la ventana principal
+            dataConversionFRM.setVisible(true);  // Mostrar la ventana
+    }//GEN-LAST:event_btnTransformarActionPerformed
 
    
 
