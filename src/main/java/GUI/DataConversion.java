@@ -212,7 +212,7 @@ public class DataConversion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExtraerFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExtraerFActionPerformed
-          cmbIOpciones.setVisible(true);
+         cmbIOpciones.setVisible(true);
         btnConfirmarOperacion.setVisible(true);
         btnConfirmarOperacion.setText("Extraer");
     }//GEN-LAST:event_btnExtraerFActionPerformed
