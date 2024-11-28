@@ -15,6 +15,7 @@ GUI\CredecialesConexion$1.class
 GUI\FormularioETL$4.class
 GUI\FormularioETL$6.class
 clases\DTO\CampoDTO.class
+clases\IngresarDatosDestino.class
 GUI\DataConversion.class
 GUI\frmConexionOrigen$5.class
 GUI\MenuPrincipal.class

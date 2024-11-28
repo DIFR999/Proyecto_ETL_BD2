@@ -23,9 +23,13 @@ public class DataConversion extends javax.swing.JFrame {
         btnMayuscula.setEnabled(false);
         btnExtraerF.setEnabled(false);
         cmbIOpciones.setVisible(false);
+        lblAlias.setVisible(false);
+        txtAlias.setVisible(false); 
+        lblTituloCo.setVisible(false);
         btnConfirmarOperacion.setVisible(false);
         DefaultComboBoxModel camposT =new DefaultComboBoxModel();
-
+        
+        //Si no se selecciono campos
         if(FormularioETL.camposSelectOrigen.isEmpty()){
               int i = 0;
                           
@@ -35,13 +39,14 @@ public class DataConversion extends javax.swing.JFrame {
                              +" "+MenuPrincipal.campos.get(i).getMaxLength());
                     i++;
                 }
+        //Si se seleciono campos
         }else{
               int i = 0;
                           
                 for (CampoDTO campo : FormularioETL.camposSelectOrigen) {
                     
-                     camposT.addElement(MenuPrincipal.campos.get(i).getColumnName()+" "+MenuPrincipal.campos.get(i).getDataType()
-                             +" "+MenuPrincipal.campos.get(i).getMaxLength());
+                     camposT.addElement(FormularioETL.camposSelectOrigen.get(i).getColumnName()+" "+FormularioETL.camposSelectOrigen.get(i).getDataType()
+                             +" "+FormularioETL.camposSelectOrigen.get(i).getMaxLength());
                     i++;
                 }
         }
@@ -71,7 +76,9 @@ public class DataConversion extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btnConfirmarOperacion = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        lblTituloCo = new javax.swing.JLabel();
+        txtAlias = new javax.swing.JTextField();
+        lblAlias = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -136,51 +143,64 @@ public class DataConversion extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jLabel3.setText("***");
+        lblTituloCo.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        lblTituloCo.setText("***");
+
+        txtAlias.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        lblAlias.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        lblAlias.setText("Alias:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(cmbCamposTran, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnMinuscula)
-                                        .addGap(29, 29, 29)
-                                        .addComponent(btnMayuscula)))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(20, 20, 20)
-                                        .addComponent(btnExtraerF)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                                        .addComponent(btnConcatenar))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(15, 15, 15)
-                                        .addComponent(cmbIOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                                        .addComponent(btnConfirmarOperacion))))
-                            .addComponent(jLabel2)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(301, 301, 301)
-                        .addComponent(jLabel1)))
-                .addContainerGap(17, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(379, 379, 379))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGap(23, 23, 23)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(6, 6, 6)
+                            .addComponent(cmbCamposTran, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(129, 129, 129)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(29, 193, Short.MAX_VALUE)
+                                    .addComponent(btnExtraerF)
+                                    .addGap(36, 36, 36))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                    .addComponent(lblAlias)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(txtAlias, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(cmbIOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(32, 32, 32)
+                                            .addComponent(btnConfirmarOperacion))
+                                        .addComponent(lblTituloCo))
+                                    .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addGap(0, 0, Short.MAX_VALUE))))
+                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGap(301, 301, 301)
+                    .addComponent(jLabel1)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGap(396, 396, 396)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(362, 362, 362))
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(btnMinuscula)
+                    .addGap(29, 29, 29)
+                    .addComponent(btnMayuscula)
+                    .addGap(44, 44, 44)
+                    .addComponent(btnConcatenar)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,21 +210,25 @@ public class DataConversion extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(lblTituloCo))
                 .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbCamposTran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbIOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnConfirmarOperacion))
-                .addGap(35, 35, 35)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtAlias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAlias))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnMinuscula)
                     .addComponent(btnMayuscula)
-                    .addComponent(btnExtraerF)
-                    .addComponent(btnConcatenar))
+                    .addComponent(btnConcatenar)
+                    .addComponent(btnExtraerF))
                 .addGap(32, 32, 32)
                 .addComponent(btnSalir)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -214,7 +238,11 @@ public class DataConversion extends javax.swing.JFrame {
     private void btnExtraerFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExtraerFActionPerformed
          cmbIOpciones.setVisible(true);
         btnConfirmarOperacion.setVisible(true);
+        lblAlias.setVisible(true);
+        txtAlias.setVisible(true);
         btnConfirmarOperacion.setText("Extraer");
+         lblTituloCo.setText("Opciones para extraer");
+        
         
         
     }//GEN-LAST:event_btnExtraerFActionPerformed
@@ -228,9 +256,12 @@ public class DataConversion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMayusculaActionPerformed
 
     private void cmbCamposTranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCamposTranActionPerformed
-          String TipoCampos;
-           cmbIOpciones.setVisible(false);
+        String TipoCampos;
+        cmbIOpciones.setVisible(false);
+        lblAlias.setVisible(false);
+        txtAlias.setVisible(false); 
         btnConfirmarOperacion.setVisible(false);
+        lblTituloCo.setVisible(false);
         if(FormularioETL.camposSelectOrigen.isEmpty()){
            
             TipoCampos = MenuPrincipal.campos.get(cmbCamposTran.getSelectedIndex()).getDataType();
@@ -257,9 +288,9 @@ public class DataConversion extends javax.swing.JFrame {
        }else{
                  TipoCampos = FormularioETL.camposSelectOrigen.get(cmbCamposTran.getSelectedIndex()).getDataType();
             if ("VARCHAR2".equals(TipoCampos) || "CHAR".equals(TipoCampos)) {
-                btnConcatenar.setEnabled(false);
-                btnMinuscula.setEnabled(false);
-                btnMayuscula.setEnabled(false);
+                btnConcatenar.setEnabled(true);
+                btnMinuscula.setEnabled(true);
+                btnMayuscula.setEnabled(true);
                 btnExtraerF.setEnabled(false);
 
             }else if("TIMESTAMP".equals(TipoCampos) || "DATE".equals(TipoCampos)){
@@ -268,7 +299,13 @@ public class DataConversion extends javax.swing.JFrame {
                 btnMayuscula.setEnabled(false);
                 btnExtraerF.setEnabled(true);
 
-             }
+             }else{ //NUMBER o llaves primarias
+                btnConcatenar.setEnabled(false);
+                btnMinuscula.setEnabled(false);
+                btnMayuscula.setEnabled(false);
+                btnExtraerF.setEnabled(false);
+
+            }
        }
         
         
@@ -280,9 +317,40 @@ public class DataConversion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnConcatenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConcatenarActionPerformed
-         cmbIOpciones.setVisible(true);
+        lblTituloCo.setVisible(true); 
+        cmbIOpciones.setVisible(true);
         btnConfirmarOperacion.setVisible(true);
+        txtAlias.setVisible(true);
+        lblAlias.setVisible(true);
+        lblTituloCo.setText("Campos a concatenar");
         btnConfirmarOperacion.setText("Concatenar Campo");
+        
+        CampoDTO campo2 = new CampoDTO();
+        
+        DefaultComboBoxModel camposCon =new DefaultComboBoxModel();
+        
+        //Si no se selecciono campos
+        if(FormularioETL.camposSelectOrigen.isEmpty()){
+              int i = 0;
+                          
+                for (CampoDTO campoconver : MenuPrincipal.campos) {
+                    
+                     camposCon.addElement(MenuPrincipal.campos.get(i).getColumnName()+" "+MenuPrincipal.campos.get(i).getDataType()
+                             +" "+MenuPrincipal.campos.get(i).getMaxLength());
+                    i++;
+                }
+        //Si se seleciono campos
+        }else{
+              int i = 0;
+                          
+                for (CampoDTO campoconver : FormularioETL.camposSelectOrigen) {
+                    
+                     camposCon.addElement(FormularioETL.camposSelectOrigen.get(i).getColumnName()+" "+FormularioETL.camposSelectOrigen.get(i).getDataType()
+                             +" "+FormularioETL.camposSelectOrigen.get(i).getMaxLength());
+                    i++;
+                }
+        }
+        this.cmbIOpciones.setModel(camposCon);
     }//GEN-LAST:event_btnConcatenarActionPerformed
 
     /**
@@ -331,6 +399,8 @@ public class DataConversion extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbIOpciones;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lblAlias;
+    private javax.swing.JLabel lblTituloCo;
+    private javax.swing.JTextField txtAlias;
     // End of variables declaration//GEN-END:variables
 }
