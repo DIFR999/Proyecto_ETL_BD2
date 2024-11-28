@@ -6,13 +6,14 @@ package GUI;
 
 import clases.DTO.CampoDTO;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Admin
  */
 public class DataConversion extends javax.swing.JFrame {
-
+    public boolean concatenar;
     /**
      * Creates new form DataConversion
      */
@@ -29,29 +30,35 @@ public class DataConversion extends javax.swing.JFrame {
         btnConfirmarOperacion.setVisible(false);
         DefaultComboBoxModel camposT =new DefaultComboBoxModel();
         
-        //Si no se selecciono campos
-        if(FormularioETL.camposSelectOrigen.isEmpty()){
-              int i = 0;
-                          
-                for (CampoDTO campo : MenuPrincipal.campos) {
-                    
-                     camposT.addElement(MenuPrincipal.campos.get(i).getColumnName()+" "+MenuPrincipal.campos.get(i).getDataType()
-                             +" "+MenuPrincipal.campos.get(i).getMaxLength());
-                    i++;
-                }
-        //Si se seleciono campos
-        }else{
-              int i = 0;
-                          
-                for (CampoDTO campo : FormularioETL.camposSelectOrigen) {
-                    
-                     camposT.addElement(FormularioETL.camposSelectOrigen.get(i).getColumnName()+" "+FormularioETL.camposSelectOrigen.get(i).getDataType()
-                             +" "+FormularioETL.camposSelectOrigen.get(i).getMaxLength());
-                    i++;
-                }
-        }
-        this.cmbCamposTran.setModel(camposT);
+        
+         try {
+                //Si no se selecciono campos
+                if(FormularioETL.camposSelectOrigen.isEmpty()){
+                      int i = 0;
 
+                        for (CampoDTO campo : MenuPrincipal.campos) {
+
+                             camposT.addElement(MenuPrincipal.campos.get(i).getColumnName()+" "+MenuPrincipal.campos.get(i).getDataType()
+                                     +" "+MenuPrincipal.campos.get(i).getMaxLength());
+                            i++;
+                        }
+                //Si se seleciono campos
+                }else{
+                      int i = 0;
+
+                        for (CampoDTO campo : FormularioETL.camposSelectOrigen) {
+
+                             camposT.addElement(FormularioETL.camposSelectOrigen.get(i).getColumnName()+" "+FormularioETL.camposSelectOrigen.get(i).getDataType()
+                                     +" "+FormularioETL.camposSelectOrigen.get(i).getMaxLength());
+                            i++;
+                        }
+                }
+                this.cmbCamposTran.setModel(camposT);
+            }catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Succedio un error inesperado " + e.getMessage());
+
+                    
+            }
         
             
                 
@@ -134,6 +141,11 @@ public class DataConversion extends javax.swing.JFrame {
 
         btnConfirmarOperacion.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         btnConfirmarOperacion.setText("Confirmar ");
+        btnConfirmarOperacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarOperacionActionPerformed(evt);
+            }
+        });
 
         btnSalir.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         btnSalir.setText("Salir");
@@ -242,7 +254,7 @@ public class DataConversion extends javax.swing.JFrame {
         txtAlias.setVisible(true);
         btnConfirmarOperacion.setText("Extraer");
          lblTituloCo.setText("Opciones para extraer");
-        
+        concatenar= false;
         
         
     }//GEN-LAST:event_btnExtraerFActionPerformed
@@ -326,32 +338,82 @@ public class DataConversion extends javax.swing.JFrame {
         btnConfirmarOperacion.setText("Concatenar Campo");
         
         CampoDTO campo2 = new CampoDTO();
-        
+        concatenar= true;
         DefaultComboBoxModel camposCon =new DefaultComboBoxModel();
-        
+        String TipoCampos;
         //Si no se selecciono campos
         if(FormularioETL.camposSelectOrigen.isEmpty()){
               int i = 0;
-                          
+                         
                 for (CampoDTO campoconver : MenuPrincipal.campos) {
-                    
+                     TipoCampos = MenuPrincipal.campos.get(i).getDataType(); 
+                    if ("VARCHAR2".equals(TipoCampos) || "CHAR".equals(TipoCampos)) {
                      camposCon.addElement(MenuPrincipal.campos.get(i).getColumnName()+" "+MenuPrincipal.campos.get(i).getDataType()
                              +" "+MenuPrincipal.campos.get(i).getMaxLength());
-                    i++;
+                    }
+                     i++;
                 }
         //Si se seleciono campos
         }else{
               int i = 0;
                           
                 for (CampoDTO campoconver : FormularioETL.camposSelectOrigen) {
-                    
+                     TipoCampos =  FormularioETL.camposSelectOrigen.get(i).getDataType(); 
+                    if ("VARCHAR2".equals(TipoCampos) || "CHAR".equals(TipoCampos)) {
                      camposCon.addElement(FormularioETL.camposSelectOrigen.get(i).getColumnName()+" "+FormularioETL.camposSelectOrigen.get(i).getDataType()
                              +" "+FormularioETL.camposSelectOrigen.get(i).getMaxLength());
-                    i++;
+                    }
+                     i++;
                 }
         }
         this.cmbIOpciones.setModel(camposCon);
+        
+       
+        
+      
     }//GEN-LAST:event_btnConcatenarActionPerformed
+
+    private void btnConfirmarOperacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarOperacionActionPerformed
+        int campos;
+        
+        if(concatenar){
+           if(!(txtAlias.getText().trim().isEmpty())){
+               CampoDTO campo2 = new CampoDTO();
+                if(FormularioETL.camposSelectOrigen.isEmpty()){ 
+                    for (int i = 0; i < MenuPrincipal.campos.size(); i++) {
+                        if (MenuPrincipal.campos.get(i).getColumnName().equals(cmbCamposTran.getSelectedItem().toString().split(" ")[0])) {
+                            campos = i;  // Si encuentras una coincidencia, guarda el índice
+                             campo2 = MenuPrincipal.campos.get(campos);
+                            break;  // Rompe el bucle ya que solo necesitas el primer índice que coincida
+                        }
+                    }                   
+                  
+                    
+                   MenuPrincipal.campos.get(cmbCamposTran.getSelectedIndex()).concatValues(campo2, txtAlias.getText());
+                   
+                   JOptionPane.showMessageDialog(this, "Se realizo correctamente "+  MenuPrincipal.campos.get(cmbCamposTran.getSelectedIndex()).getColumnNameConvert());
+                }else{
+                    for (int i = 0; i < FormularioETL.camposSelectOrigen.size(); i++) {
+                        if (FormularioETL.camposSelectOrigen.get(i).getColumnName().equals(cmbCamposTran.getSelectedItem().toString().split(" ")[0])) {
+                            campos = i;  // Si encuentras una coincidencia, guarda el índice
+                             campo2 = FormularioETL.camposSelectOrigen.get(campos);
+                            break;  // Rompe el bucle ya que solo necesitas el primer índice que coincida
+                        }
+                    }                   
+                  
+                    
+                   FormularioETL.camposSelectOrigen.get(cmbCamposTran.getSelectedIndex()).concatValues(campo2, txtAlias.getText());
+                   
+                   JOptionPane.showMessageDialog(this, "Se realizo correctamente "+ FormularioETL.camposSelectOrigen.get(cmbCamposTran.getSelectedIndex()).getColumnNameConvert());
+                }
+           }else{
+                JOptionPane.showMessageDialog(this, "Ingrese un alias a concatenación");
+ 
+           }
+       }else{
+            
+        }
+    }//GEN-LAST:event_btnConfirmarOperacionActionPerformed
 
     /**
      * @param args the command line arguments
