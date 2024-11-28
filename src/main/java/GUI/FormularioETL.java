@@ -308,7 +308,8 @@ public class FormularioETL extends javax.swing.JFrame {
          txaConsultaSQL.setEnabled(false);  // Deshabilitar txaConsultaSQL
          txaConsultaSQL.setText("");
          cmbTablas.removeAllItems();
-         
+         FormularioETL.camposSelectOrigen.clear();
+         btnTransformar.setEnabled(false);
          try{
                 this.tablas = tablasPorConexion.obtenerTablas(MenuPrincipal.ConexionOrigen.getUsername(),CredecialesConexion.conOrigen);
 
@@ -342,6 +343,8 @@ public class FormularioETL extends javax.swing.JFrame {
         cmbTablas.setEnabled(false);  // Deshabilitar cmbTablas
         txaConsultaSQL.setEnabled(true);  // Habilitar txaConsultaSQL
         cmbTablas.removeAllItems();
+         FormularioETL.camposSelectOrigen.clear();
+         btnTransformar.setEnabled(false);
         
     }//GEN-LAST:event_jrbConsultaActionPerformed
 
@@ -367,7 +370,8 @@ public class FormularioETL extends javax.swing.JFrame {
                 else{
                     if (MenuPrincipal.campos != null) {
                         JOptionPane.showMessageDialog(this, "La consulta es correcta");
-                        btnEscogerCampos.setEnabled(true);    
+                        btnEscogerCampos.setEnabled(true);
+                          btnTransformar.setEnabled(true);
                     } else {
                         JOptionPane.showMessageDialog(this, "La consulta no produjo resultados válidos. Intente nuevamente.");
 

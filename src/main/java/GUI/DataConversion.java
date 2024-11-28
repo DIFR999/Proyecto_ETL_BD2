@@ -95,7 +95,7 @@ public class DataConversion extends javax.swing.JFrame {
         });
 
         btnMayuscula.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        btnMayuscula.setText("Convertir a minúscula");
+        btnMayuscula.setText("Convertir a mayúscula");
         btnMayuscula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMayusculaActionPerformed(evt);
@@ -151,18 +151,18 @@ public class DataConversion extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnMinuscula)
-                                        .addGap(40, 40, 40)
-                                        .addComponent(btnMayuscula))
-                                    .addGroup(layout.createSequentialGroup()
                                         .addGap(6, 6, 6)
-                                        .addComponent(cmbCamposTran, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(7, 7, 7)
+                                        .addComponent(cmbCamposTran, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnMinuscula)
+                                        .addGap(29, 29, 29)
+                                        .addComponent(btnMayuscula)))
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(20, 20, 20)
                                         .addComponent(btnExtraerF)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                                         .addComponent(btnConcatenar))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel3)
@@ -170,13 +170,13 @@ public class DataConversion extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(15, 15, 15)
                                         .addComponent(cmbIOpciones, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                                         .addComponent(btnConfirmarOperacion))))
                             .addComponent(jLabel2)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(301, 301, 301)
                         .addComponent(jLabel1)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -215,14 +215,16 @@ public class DataConversion extends javax.swing.JFrame {
          cmbIOpciones.setVisible(true);
         btnConfirmarOperacion.setVisible(true);
         btnConfirmarOperacion.setText("Extraer");
+        
+        
     }//GEN-LAST:event_btnExtraerFActionPerformed
 
     private void btnMinusculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinusculaActionPerformed
-        // TODO add your handling code here:
+        FormularioETL.camposSelectOrigen.get(cmbCamposTran.getSelectedIndex()).lowerColumn();
     }//GEN-LAST:event_btnMinusculaActionPerformed
 
     private void btnMayusculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMayusculaActionPerformed
-        // TODO add your handling code here:
+        FormularioETL.camposSelectOrigen.get(cmbCamposTran.getSelectedIndex()).upperColumn();
     }//GEN-LAST:event_btnMayusculaActionPerformed
 
     private void cmbCamposTranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCamposTranActionPerformed
