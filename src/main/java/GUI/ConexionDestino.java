@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import static GUI.FormularioETL.tablas;
+import static GUI.FormularioETL.tablasPorConexion;
 import clases.ConexionGBD;
 import clases.DTO.ConexionDTO;
 import java.sql.Connection;
@@ -197,9 +199,10 @@ public class ConexionDestino extends javax.swing.JFrame {
     private void btnConectarDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConectarDestinoActionPerformed
         // TODO add your handling code here:
         MenuPrincipal.UsuarioCOnexionDestino = this.cmbConexionesDD.getSelectedItem().toString();
-        btnConectarDestino.setEnabled(true);
+        btnVerificarCredencialesDestino.setEnabled(true);
         txtusuarioCredencialesDestino.setEnabled(true);
         txtPasswordCredencialesDestino.setEnabled(true);
+        txtusuarioCredencialesDestino.setText(this.cmbConexionesDD.getSelectedItem().toString());
        
 
     }//GEN-LAST:event_btnConectarDestinoActionPerformed
@@ -216,6 +219,27 @@ public class ConexionDestino extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Conexion Exitosa");
             
             FormularioETL.txtBaseDestino.setText(MenuPrincipal.conexionDestino.getUsername());
+            
+            
+            try{
+            FormularioETL.tablasDestino = FormularioETL.tablasPorConexionDestino.obtenerTablas(MenuPrincipal.conexionDestino.getUsername(), conDestino);
+
+                // MOSTRAMOS LA LISTA DE TABLAS QUE EL SCHEMA POSEE
+
+                 DefaultComboBoxModel modelTablasDestino =new DefaultComboBoxModel();
+            
+                  int i = 0;
+                      modelTablasDestino.addElement("Selecciona una tabla");
+                for (String tabla : FormularioETL.tablasDestino) {
+                       modelTablasDestino.addElement(FormularioETL.tablasDestino.get(i).toString());
+                        i++;
+                }
+                
+                FormularioETL.cmbTablasDestino.setModel(modelTablasDestino);
+        }catch  (Exception e){
+            JOptionPane.showMessageDialog(this, "No se pudo establecer conexion con las tablas ." + e.getMessage());
+
+        }
             dispose(); // Cierra la ventana actual
             
          
