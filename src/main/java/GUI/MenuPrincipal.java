@@ -17,14 +17,16 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class MenuPrincipal extends javax.swing.JFrame {
-
+    
+    //CONEXIONES PARA EL ORIGEN
     public static ConexionesDisponible conexionesDisponibles = new ConexionesDisponible();
     public static ArrayList<ConexionDTO> conexiones = new ArrayList<ConexionDTO>();
     public static ConexionDTO ConexionOrigen  = new ConexionDTO();
     public static ArrayList<TABLADTO> TablasSelecionadasOrigen = new ArrayList<TABLADTO>();
    
-    
-    
+    //CONEXINES PARA EL DESTINO
+    public static ConexionDTO conexionDestino = new ConexionDTO();
+				
     // CREAMOS LA ESTRUCTURA PARA OBTENER LOS CAMPOS DE LA TABLA
     public static CamposPorTablaConsulta camposPorTabla = new CamposPorTablaConsulta();
     public static ArrayList<CampoDTO> campos = new ArrayList<CampoDTO>();
@@ -39,7 +41,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     
    //VARIABLES GLOBALES
     public static String UsuarioCOnexion;
-        
+    public static String UsuarioCOnexionDestino;
+     public static String UserAdministrador, PasswordAdministrador;   
 
     /**
      * Creates new form MenuPrincipal

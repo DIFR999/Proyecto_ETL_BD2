@@ -209,11 +209,11 @@ public class frmConexionOrigen extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUserAdminActionPerformed
 
     private void btnVerificarUserAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarUserAdminActionPerformed
-        String User, Password;
-        User = txtUserAdmin.getText();
-        Password = txtPasswordAdmin.getText();
-       if(MenuPrincipal.conexionesDisponibles.verificarCredenciales(User, Password)){
-            MenuPrincipal.conexiones = MenuPrincipal.conexionesDisponibles.obtenerConexionesDisponibles(User,Password);
+       
+        MenuPrincipal.UserAdministrador = txtUserAdmin.getText();
+        MenuPrincipal.PasswordAdministrador = txtPasswordAdmin.getText();
+       if(MenuPrincipal.conexionesDisponibles.verificarCredenciales(MenuPrincipal.UserAdministrador,  MenuPrincipal.PasswordAdministrador)){
+            MenuPrincipal.conexiones = MenuPrincipal.conexionesDisponibles.obtenerConexionesDisponibles(MenuPrincipal.UserAdministrador, MenuPrincipal.PasswordAdministrador);
             pnlConexionOrigen.setEnabled((true));
             btnConectarOrigen.setEnabled((true));
             lblconOrigen.setEnabled((true));
@@ -231,6 +231,7 @@ public class frmConexionOrigen extends javax.swing.JFrame {
                        JOptionPane.showMessageDialog(this, "No hay conexiones");
              }else{
                 JOptionPane.showMessageDialog(this, "Conexión exitosa");
+              
                 
             }
            

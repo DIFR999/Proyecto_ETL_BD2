@@ -5,6 +5,7 @@
 package GUI;
 
 import clases.DTO.CampoDTO;
+import clases.DTO.ConexionDTO;
 import clases.ExtracionDatosOrigen;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,6 +35,13 @@ public class FormularioETL extends javax.swing.JFrame {
         cmbTablas.setEnabled(false);
         btnEscogerCampos.setEnabled(false);
         btnTransformar.setEnabled(false);
+        
+        if(MenuPrincipal.conexiones.isEmpty()){
+             btnAgregarConexionDestino.setEnabled(false);
+        }else{
+             btnAgregarConexionDestino.setEnabled(true);
+        }
+       
         
         
     }
@@ -98,7 +106,7 @@ public class FormularioETL extends javax.swing.JFrame {
         btnTransformar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         lblUsuarioBaseDestion = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtBaseDestino = new javax.swing.JTextField();
         btnAgregarConexionDestino = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -241,8 +249,8 @@ public class FormularioETL extends javax.swing.JFrame {
         lblUsuarioBaseDestion.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         lblUsuarioBaseDestion.setText("Data Destination");
 
-        jTextField1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jTextField1.setEnabled(false);
+        txtBaseDestino.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtBaseDestino.setEnabled(false);
 
         btnAgregarConexionDestino.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
         btnAgregarConexionDestino.setText("Agregar Conexion Data Destination");
@@ -272,7 +280,7 @@ public class FormularioETL extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1)
+                    .addComponent(txtBaseDestino)
                     .addComponent(jComboBox1, 0, 433, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAgregarConexionDestino)
@@ -287,10 +295,11 @@ public class FormularioETL extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtBaseDestino, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblUsuarioBaseDestion)
-                        .addComponent(btnAgregarConexionDestino)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnAgregarConexionDestino, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -438,13 +447,31 @@ public class FormularioETL extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTransformarActionPerformed
 
     private void btnAgregarConexionDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarConexionDestinoActionPerformed
+        if(MenuPrincipal.UserAdministrador.isEmpty()){
+            JOptionPane.showMessageDialog(this, "No hay conexiones, verifique si ha anadido la credenciales de administrador");
+
+        }else{
+           
+
+
+            ConexionDestino guiConexionDestino = new ConexionDestino();      
+            guiConexionDestino.setLocationRelativeTo(this);  // Centra la ventana con respecto a la ventana principal
+            guiConexionDestino.setVisible(true);  // Mostrar la ventana
+
+           
+
+            
+
+                 
+            
+        }        
     }//GEN-LAST:event_btnAgregarConexionDestinoActionPerformed
 
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgrTipoExtraccion;
-    private javax.swing.JButton btnAgregarConexionDestino;
+    public static javax.swing.JButton btnAgregarConexionDestino;
     private javax.swing.JButton btnCrearETL;
     private javax.swing.JButton btnEscogerCampos;
     private javax.swing.JButton btnExtraerBD;
@@ -456,7 +483,6 @@ public class FormularioETL extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JToggleButton jToggleButton1;
     public static javax.swing.JRadioButton jrbConsulta;
     public static javax.swing.JRadioButton jrbTabla;
@@ -464,5 +490,6 @@ public class FormularioETL extends javax.swing.JFrame {
     private javax.swing.JPanel pnlDataConversion;
     private javax.swing.JPanel pnlExtracion;
     private javax.swing.JTextArea txaConsultaSQL;
+    public static javax.swing.JTextField txtBaseDestino;
     // End of variables declaration//GEN-END:variables
 }
