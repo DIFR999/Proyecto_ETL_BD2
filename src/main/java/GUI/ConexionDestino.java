@@ -125,6 +125,7 @@ public class ConexionDestino extends javax.swing.JFrame {
         jLabel1.setText("Usuario:");
 
         txtusuarioCredencialesDestino.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtusuarioCredencialesDestino.setEnabled(false);
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         jLabel2.setText("Contraseña:");
