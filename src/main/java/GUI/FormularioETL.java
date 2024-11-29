@@ -36,6 +36,9 @@ public class FormularioETL extends javax.swing.JFrame {
 
      //Variables globales
      public static String tablaSeleccionada;
+     public static String tablaDEstinoSeleccionada;
+     public static String Consulta;
+     
     /**
      * Creates new form FormularioETL
      */
@@ -280,6 +283,11 @@ public class FormularioETL extends javax.swing.JFrame {
 
         btnAsignacionesCampos.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         btnAsignacionesCampos.setText("Asignaciones Campos(Mapear)");
+        btnAsignacionesCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignacionesCamposActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -424,6 +432,7 @@ public class FormularioETL extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "La consulta es correcta");
                         btnEscogerCampos.setEnabled(true);
                           btnTransformar.setEnabled(true);
+                          Consulta = txaConsultaSQL.getText();
                     } else {
                         JOptionPane.showMessageDialog(this, "La consulta no produjo resultados válidos. Intente nuevamente.");
 
@@ -475,6 +484,13 @@ public class FormularioETL extends javax.swing.JFrame {
             
         }        
     }//GEN-LAST:event_btnAgregarConexionDestinoActionPerformed
+
+    private void btnAsignacionesCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignacionesCamposActionPerformed
+                                                      
+        AsignacionesMapeo frmMapeo = new AsignacionesMapeo();      
+        frmMapeo.setLocationRelativeTo(this);  // Centra la ventana con respecto a la ventana principal
+        frmMapeo.setVisible(true);  // Mostrar la ventana
+    }//GEN-LAST:event_btnAsignacionesCamposActionPerformed
 
    
 
