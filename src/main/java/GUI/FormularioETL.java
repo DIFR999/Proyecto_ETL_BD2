@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import clases.CamposPorTablaConsulta;
 import clases.DTO.CampoDTO;
 import clases.DTO.ConexionDTO;
 import clases.ExtracionDatosOrigen;
@@ -30,6 +31,8 @@ public class FormularioETL extends javax.swing.JFrame {
     
     
     //EStructura en order de los campos(Mapeo)
+      // CREAMOS LA ESTRUCTURA PARA OBTENER LOS CAMPOS DE LA TABLA ORIGEN
+        public static CamposPorTablaConsulta camposPorTablaDestino = new CamposPorTablaConsulta();
         public static ArrayList<CampoDTO> camposSelectOrigenOrden = new ArrayList<CampoDTO>();
 
         public static ArrayList<CampoDTO> camposSelectDestinoOrden = new ArrayList<CampoDTO>();
@@ -486,10 +489,22 @@ public class FormularioETL extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarConexionDestinoActionPerformed
 
     private void btnAsignacionesCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignacionesCamposActionPerformed
-                                                      
-        AsignacionesMapeo frmMapeo = new AsignacionesMapeo();      
-        frmMapeo.setLocationRelativeTo(this);  // Centra la ventana con respecto a la ventana principal
-        frmMapeo.setVisible(true);  // Mostrar la ventana
+        if(cmbTablasDestino.getSelectedItem().equals("Selecciona una tabla")) {
+            JOptionPane.showMessageDialog(this, "Seleccione una tabla de destino");
+        }else{
+            try{
+                camposSelectDestino = camposPorTablaDestino.obtenerCampos(ConexionDestino.conDestino, cmbTablasDestino.getSelectedItem().toString());
+                AsignacionesMapeo frmMapeo = new AsignacionesMapeo();      
+                frmMapeo.setLocationRelativeTo(this);  // Centra la ventana con respecto a la ventana principal
+                frmMapeo.setVisible(true);  // Mostrar la ventana
+                                                   
+            }catch (Exception e){
+                    JOptionPane.showMessageDialog(this, "Sucedio un error inesperado al momento de obtener los campos de la tabla de destino: "+ e.getMessage());
+
+            }
+        } 
+            
+       
     }//GEN-LAST:event_btnAsignacionesCamposActionPerformed
 
    
