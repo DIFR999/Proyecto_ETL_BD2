@@ -27,12 +27,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
     //CONEXINES PARA EL DESTINO
     public static ConexionDTO conexionDestino = new ConexionDTO();
 				
-    // CREAMOS LA ESTRUCTURA PARA OBTENER LOS CAMPOS DE LA TABLA
+    // CREAMOS LA ESTRUCTURA PARA OBTENER LOS CAMPOS DE LA TABLA ORIGEN
     public static CamposPorTablaConsulta camposPorTabla = new CamposPorTablaConsulta();
     public static ArrayList<CampoDTO> campos = new ArrayList<CampoDTO>();
     
-    //LISTA PARA GUARDAR TODAS LAS TABLAS PARA ETL Y 
-    public static ArrayList<TABLADTO>  TablasCamposOrigen = new ArrayList<TABLADTO>();
+    //GUARDAR TODAS INSERCCIONES DE UN DATAMART
+    public static ArrayList<String> InserccionesETL = new ArrayList<String>() ;
+    
+    
     
     public static frmConexionOrigen frmCONOR = new frmConexionOrigen();
 

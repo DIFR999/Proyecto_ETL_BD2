@@ -4,13 +4,16 @@ GUI\FormularioETL$2.class
 GUI\frmConexionOrigen$2.class
 GUI\FrmEscogerCampos$1.class
 clases\CamposPorTablaConsulta.class
+GUI\AsignacionesMapeo.class
 GUI\DataConversion$1.class
 GUI\FormularioETL$6.class
+GUI\AsignacionesMapeo$1.class
 GUI\DataConversion.class
 GUI\frmConexionOrigen$5.class
 GUI\MenuPrincipal.class
 GUI\DataConversion$9.class
 GUI\MenuPrincipal$1.class
+GUI\AsignacionesMapeo$3.class
 GUI\DataConversion$4.class
 GUI\FormularioETL$3.class
 GUI\ConexionDestino$3.class
@@ -22,6 +25,7 @@ GUI\MenuPrincipal$5.class
 clases\ExtracionDatosOrigen.class
 GUI\DataConversion$3.class
 GUI\FormularioETL$7.class
+GUI\AsignacionesMapeo$2.class
 GUI\ConexionDestino$4.class
 GUI\MenuPrincipal$2.class
 clases\ConexionGBD.class

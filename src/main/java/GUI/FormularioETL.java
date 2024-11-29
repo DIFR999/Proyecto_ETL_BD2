@@ -46,6 +46,7 @@ public class FormularioETL extends javax.swing.JFrame {
         cmbTablas.setEnabled(false);
         btnEscogerCampos.setEnabled(false);
         btnTransformar.setEnabled(false);
+        btnAsignacionesCampos.setEnabled(false);
         
         if(MenuPrincipal.conexiones.isEmpty()){
              btnAgregarConexionDestino.setEnabled(false);
@@ -121,9 +122,7 @@ public class FormularioETL extends javax.swing.JFrame {
         btnAgregarConexionDestino = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         cmbTablasDestino = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnAsignacionesCampos = new javax.swing.JButton();
         btnCrearETL = new javax.swing.JButton();
 
         jToggleButton1.setText("jToggleButton1");
@@ -279,12 +278,8 @@ public class FormularioETL extends javax.swing.JFrame {
         cmbTablasDestino.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         cmbTablasDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jButton1.setText("Asignaciones Campos(Mapear)");
-
-        jButton2.setText("jButton2");
-
-        jButton3.setText("jButton3");
+        btnAsignacionesCampos.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        btnAsignacionesCampos.setText("Asignaciones Campos(Mapear)");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -299,23 +294,13 @@ public class FormularioETL extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtBaseDestino)
                     .addComponent(cmbTablasDestino, 0, 433, Short.MAX_VALUE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                        .addComponent(btnAgregarConexionDestino)
-                        .addGap(31, 31, 31))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addComponent(btnAgregarConexionDestino)
+                .addGap(31, 31, 31))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAsignacionesCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(239, 239, 239))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,15 +309,12 @@ public class FormularioETL extends javax.swing.JFrame {
                     .addComponent(lblUsuarioBaseDestion)
                     .addComponent(txtBaseDestino)
                     .addComponent(btnAgregarConexionDestino, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbTablasDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(jButton3))
-                .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(40, 40, 40)
+                .addComponent(btnAsignacionesCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -499,15 +481,13 @@ public class FormularioETL extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgrTipoExtraccion;
     public static javax.swing.JButton btnAgregarConexionDestino;
+    public static javax.swing.JButton btnAsignacionesCampos;
     private javax.swing.JButton btnCrearETL;
     private javax.swing.JButton btnEscogerCampos;
     private javax.swing.JButton btnExtraerBD;
     private javax.swing.JButton btnTransformar;
     private javax.swing.JComboBox<String> cmbTablas;
     public static javax.swing.JComboBox<String> cmbTablasDestino;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

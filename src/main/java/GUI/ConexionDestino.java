@@ -240,6 +240,7 @@ public class ConexionDestino extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No se pudo establecer conexion con las tablas ." + e.getMessage());
 
         }
+            FormularioETL.btnAsignacionesCampos.setEnabled(true);
             dispose(); // Cierra la ventana actual
             
          
