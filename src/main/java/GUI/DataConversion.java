@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
  */
 public class DataConversion extends javax.swing.JFrame {
     public boolean concatenar;
+    public String TipoExtraer;
+    public String tipoDatosTraFecha;
     /**
      * Creates new form DataConversion
      */
@@ -135,6 +137,11 @@ public class DataConversion extends javax.swing.JFrame {
         cmbIOpciones.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
         cmbIOpciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbIOpciones.setRequestFocusEnabled(false);
+        cmbIOpciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbIOpcionesActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         jLabel2.setText("Campos");
@@ -246,7 +253,15 @@ public class DataConversion extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+    private DefaultComboBoxModel ListaFechas(){
+                DefaultComboBoxModel ListaExtraerFecha =new DefaultComboBoxModel();
+                ListaExtraerFecha.addElement("Año");
+                ListaExtraerFecha.addElement("Mes");
+                ListaExtraerFecha.addElement("Dia");
+                ListaExtraerFecha.addElement("Hora");                
+                return ListaExtraerFecha;
 
+    }
     private void btnExtraerFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExtraerFActionPerformed
          cmbIOpciones.setVisible(true);
         btnConfirmarOperacion.setVisible(true);
@@ -257,14 +272,42 @@ public class DataConversion extends javax.swing.JFrame {
         concatenar= false;
         
         
+        cmbIOpciones.setModel(ListaFechas());
+        
+        
+        if(cmbIOpciones.getSelectedItem().toString().equals("Año")){
+            TipoExtraer = "YEAR";
+            tipoDatosTraFecha= "NUMBER";
+        }else if(cmbIOpciones.getSelectedItem().toString().equals("Mes")){
+             TipoExtraer = "MONTH";
+             tipoDatosTraFecha= "NUMBER";
+        }else if(cmbIOpciones.getSelectedItem().toString().equals("Día")){
+             TipoExtraer = "DAY";
+             tipoDatosTraFecha= "NUMBER";
+        }else if(cmbIOpciones.getSelectedItem().toString().equals("Hora")){
+             TipoExtraer = "HOUR";
+             tipoDatosTraFecha= "VARCHAR2";
+        }
+        
     }//GEN-LAST:event_btnExtraerFActionPerformed
 
     private void btnMinusculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinusculaActionPerformed
-        FormularioETL.camposSelectOrigen.get(cmbCamposTran.getSelectedIndex()).lowerColumn();
+        if(FormularioETL.camposSelectOrigen.isEmpty()){
+               MenuPrincipal.campos.get(cmbCamposTran.getSelectedIndex()).lowerColumn();
+        }else{
+             FormularioETL.camposSelectOrigen.get(cmbCamposTran.getSelectedIndex()).lowerColumn();
+        }
+        
+        
     }//GEN-LAST:event_btnMinusculaActionPerformed
 
     private void btnMayusculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMayusculaActionPerformed
-        FormularioETL.camposSelectOrigen.get(cmbCamposTran.getSelectedIndex()).upperColumn();
+         if(FormularioETL.camposSelectOrigen.isEmpty()){
+               MenuPrincipal.campos.get(cmbCamposTran.getSelectedIndex()).upperColumn();
+        }else{
+             FormularioETL.camposSelectOrigen.get(cmbCamposTran.getSelectedIndex()).upperColumn();
+        }
+      
     }//GEN-LAST:event_btnMayusculaActionPerformed
 
     private void cmbCamposTranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCamposTranActionPerformed
@@ -336,6 +379,7 @@ public class DataConversion extends javax.swing.JFrame {
         lblAlias.setVisible(true);
         lblTituloCo.setText("Campos a concatenar");
         btnConfirmarOperacion.setText("Concatenar Campo");
+       
         
         CampoDTO campo2 = new CampoDTO();
         concatenar= true;
@@ -353,6 +397,7 @@ public class DataConversion extends javax.swing.JFrame {
                     }
                      i++;
                 }
+                this.cmbIOpciones.setModel(camposCon);
         //Si se seleciono campos
         }else{
               int i = 0;
@@ -365,8 +410,9 @@ public class DataConversion extends javax.swing.JFrame {
                     }
                      i++;
                 }
+                this.cmbIOpciones.setModel(camposCon);
         }
-        this.cmbIOpciones.setModel(camposCon);
+        
         
        
         
@@ -375,45 +421,84 @@ public class DataConversion extends javax.swing.JFrame {
 
     private void btnConfirmarOperacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarOperacionActionPerformed
         int campos;
-        
-        if(concatenar){
-           if(!(txtAlias.getText().trim().isEmpty())){
-               CampoDTO campo2 = new CampoDTO();
-                if(FormularioETL.camposSelectOrigen.isEmpty()){ 
-                    for (int i = 0; i < MenuPrincipal.campos.size(); i++) {
-                        if (MenuPrincipal.campos.get(i).getColumnName().equals(cmbCamposTran.getSelectedItem().toString().split(" ")[0])) {
-                            campos = i;  // Si encuentras una coincidencia, guarda el índice
-                             campo2 = MenuPrincipal.campos.get(campos);
-                            break;  // Rompe el bucle ya que solo necesitas el primer índice que coincida
-                        }
-                    }                   
-                  
-                    
-                   MenuPrincipal.campos.get(cmbCamposTran.getSelectedIndex()).concatValues(campo2, txtAlias.getText());
-                   
-                   JOptionPane.showMessageDialog(this, "Se realizo correctamente "+  MenuPrincipal.campos.get(cmbCamposTran.getSelectedIndex()).getColumnNameConvert());
+        try{    
+            if(concatenar){
+               if(!(txtAlias.getText().trim().isEmpty())){
+                   CampoDTO campo2 = new CampoDTO();
+                    if(FormularioETL.camposSelectOrigen.isEmpty()){ 
+                        for (int i = 0; i < MenuPrincipal.campos.size(); i++) {
+                            if (MenuPrincipal.campos.get(i).getColumnName().equals(cmbCamposTran.getSelectedItem().toString().split(" ")[0])) {
+                                campos = i;  // Si encuentras una coincidencia, guarda el índice
+                                 campo2 = MenuPrincipal.campos.get(campos);
+                                break;  // Rompe el bucle ya que solo necesitas el primer índice que coincida
+                            }
+                        }                   
+
+
+                       MenuPrincipal.campos.get(cmbCamposTran.getSelectedIndex()).concatValues(campo2, txtAlias.getText());
+
+                       JOptionPane.showMessageDialog(this, "Se realizo correctamente "+  MenuPrincipal.campos.get(cmbCamposTran.getSelectedIndex()).getColumnNameConvert());
+                    }else{
+                        for (int i = 0; i < FormularioETL.camposSelectOrigen.size(); i++) {
+                            if (FormularioETL.camposSelectOrigen.get(i).getColumnName().equals(cmbCamposTran.getSelectedItem().toString().split(" ")[0])) {
+                                campos = i;  // Si encuentras una coincidencia, guarda el índice
+                                 campo2 = FormularioETL.camposSelectOrigen.get(campos);
+                                break;  // Rompe el bucle ya que solo necesitas el primer índice que coincida
+                            }
+                        }                   
+
+
+                       FormularioETL.camposSelectOrigen.get(cmbCamposTran.getSelectedIndex()).concatValues(campo2, txtAlias.getText());
+
+                       JOptionPane.showMessageDialog(this, "Se realizo correctamente "+ FormularioETL.camposSelectOrigen.get(cmbCamposTran.getSelectedIndex()).getColumnNameConvert());
+                    }
+               }else{
+                    JOptionPane.showMessageDialog(this, "Ingrese un alias a concatenación");
+
+               }
+           }else{ // Cuando se Extraer una fecha
+                if(!(txtAlias.getText().trim().isEmpty())){
+                    if(FormularioETL.camposSelectOrigen.isEmpty()){ 
+                        MenuPrincipal.campos.get(cmbCamposTran.getSelectedIndex()).Extraer(TipoExtraer, txtAlias.getText());
+                        MenuPrincipal.campos.get(cmbCamposTran.getSelectedIndex()).setDataType(tipoDatosTraFecha);
+
+                          JOptionPane.showMessageDialog(this, "Se realizo correctamente La extracion "+  MenuPrincipal.campos.get(cmbCamposTran.getSelectedIndex()).getColumnNameConvert()
+                           + " " + MenuPrincipal.campos.get(cmbCamposTran.getSelectedIndex()).getDataType());
+                       }else{
+
+
+
+                          FormularioETL.camposSelectOrigen.get(cmbCamposTran.getSelectedIndex()).Extraer(TipoExtraer, txtAlias.getText());
+                            MenuPrincipal.campos.get(cmbCamposTran.getSelectedIndex()).setDataType(tipoDatosTraFecha);
+                          JOptionPane.showMessageDialog(this, "Se realizo correctamente La extracion "+ FormularioETL.camposSelectOrigen.get(cmbCamposTran.getSelectedIndex()).getColumnNameConvert()
+                            + " " +FormularioETL.camposSelectOrigen.get(cmbCamposTran.getSelectedIndex()).getDataType());
+                       }
                 }else{
-                    for (int i = 0; i < FormularioETL.camposSelectOrigen.size(); i++) {
-                        if (FormularioETL.camposSelectOrigen.get(i).getColumnName().equals(cmbCamposTran.getSelectedItem().toString().split(" ")[0])) {
-                            campos = i;  // Si encuentras una coincidencia, guarda el índice
-                             campo2 = FormularioETL.camposSelectOrigen.get(campos);
-                            break;  // Rompe el bucle ya que solo necesitas el primer índice que coincida
-                        }
-                    }                   
-                  
-                    
-                   FormularioETL.camposSelectOrigen.get(cmbCamposTran.getSelectedIndex()).concatValues(campo2, txtAlias.getText());
-                   
-                   JOptionPane.showMessageDialog(this, "Se realizo correctamente "+ FormularioETL.camposSelectOrigen.get(cmbCamposTran.getSelectedIndex()).getColumnNameConvert());
-                }
-           }else{
-                JOptionPane.showMessageDialog(this, "Ingrese un alias a concatenación");
- 
-           }
-       }else{
-            
-        }
+                    JOptionPane.showMessageDialog(this, "Ingrese un alias a Extración de fecha");
+
+                }  
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Sucedio un error inesperado, el error es: " +e.getMessage());
+
+        }    
     }//GEN-LAST:event_btnConfirmarOperacionActionPerformed
+
+    private void cmbIOpcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbIOpcionesActionPerformed
+        if(cmbIOpciones.getSelectedItem().toString().equals("Año")){
+            TipoExtraer = "YEAR";
+            tipoDatosTraFecha= "NUMBER";
+        }else if(cmbIOpciones.getSelectedItem().toString().equals("Mes")){
+             TipoExtraer = "MONTH";
+             tipoDatosTraFecha= "NUMBER";
+        }else if(cmbIOpciones.getSelectedItem().toString().equals("Día")){
+             TipoExtraer = "DAY";
+             tipoDatosTraFecha= "NUMBER";
+        }else if(cmbIOpciones.getSelectedItem().toString().equals("Hora")){
+             TipoExtraer = "HOUR";
+             tipoDatosTraFecha= "VARCHAR2";
+        }
+    }//GEN-LAST:event_cmbIOpcionesActionPerformed
 
     /**
      * @param args the command line arguments
