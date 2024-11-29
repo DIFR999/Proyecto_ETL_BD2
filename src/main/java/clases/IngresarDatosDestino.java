@@ -10,12 +10,11 @@ public class IngresarDatosDestino {
  
 
 
-    // Método para preparar las inserciones sin ejecutarlas inmediatamente
-    public List<String> prepararInserciones(Connection connOrg, Connection connDes,
-            ArrayList<String> camposDestino, ArrayList<String> camposOrigen, String tableOrigen, 
-            String tableDestino, boolean fromTable) {
-        
-        List<String> consultasPreparadas = new ArrayList<>();
+     // Método para preparar una única consulta de inserción
+    public String prepararInsercion(Connection connOrg, ArrayList<String> camposDestino,
+            ArrayList<String> camposOrigen, String tableOrigen, String tableDestino, boolean fromTable) {
+
+        String consultaPreparada = null;
         ResultSet rsOrg = null;
 
         try {
@@ -26,68 +25,64 @@ public class IngresarDatosDestino {
             }
             camposConsulta.delete(camposConsulta.length() - 2, camposConsulta.length()); // Eliminar la última coma y el espacio
 
-            // Verificamos si 'tableOrigen' es una tabla o una consulta SQL
+            // Generar la consulta para obtener datos del origen (tabla o consulta)
+            String sqlOrigen;
             if (fromTable) {
-                // Si es una tabla, usamos un SELECT directo
-                String sql = "SELECT " + camposConsulta.toString() + " FROM " + tableOrigen;
-                PreparedStatement stmtOrg = connOrg.prepareStatement(sql);
-                rsOrg = stmtOrg.executeQuery();
+                // Si el origen es una tabla, usamos un SELECT directo
+                sqlOrigen = "SELECT " + camposConsulta.toString() + " FROM " + tableOrigen;
             } else {
-                // Si es una consulta, ejecutamos directamente la consulta SQL
-                PreparedStatement stmtOrg = connOrg.prepareStatement(tableOrigen);
-                rsOrg = stmtOrg.executeQuery();
+                // Si el origen es una consulta, utilizamos directamente la consulta SQL proporcionada
+                sqlOrigen = tableOrigen; // Aquí se asume que `tableOrigen` contiene la consulta válida
             }
 
-            // Obtener la metadata del ResultSet para conocer las columnas
-            ResultSetMetaData metaData = rsOrg.getMetaData();
-            int cantidadColumnas = metaData.getColumnCount();
+            // Ejecutar la consulta de origen para verificar si es válida
+            PreparedStatement stmtOrg = connOrg.prepareStatement(sqlOrigen);
+            rsOrg = stmtOrg.executeQuery();
 
-            // Preparar la consulta de inserción para la tabla de destino con la cláusula EXISTS
-            StringBuilder consultaInsert = new StringBuilder("INSERT INTO " + tableDestino + " (" 
-                    + String.join(", ", camposDestino) + ") ");
-            consultaInsert.append("SELECT ?, ?, ? WHERE NOT EXISTS (SELECT 1 FROM " + tableDestino + " WHERE id = ?)");
+            // Construir la consulta de inserción dinámica con la cláusula EXISTS
+            StringBuilder condicionesExists = new StringBuilder();
+            for (String campo : camposDestino) {
+                condicionesExists.append(campo).append(" = ? AND ");
+            }
+            condicionesExists.delete(condicionesExists.length() - 5, condicionesExists.length()); // Eliminar " AND"
 
-            // Almacenar la consulta preparada para su ejecución posterior
-            consultasPreparadas.add(consultaInsert.toString());
-
-            // Se pueden construir y almacenar múltiples consultas si es necesario para otras tablas
-            // Repetir el mismo proceso para otras tablas (no mostrado aquí).
+            consultaPreparada = "INSERT INTO " + tableDestino + " (" + String.join(", ", camposDestino) + ") " +
+                                "SELECT " + String.join(", ", camposDestino) + " " +
+                                "WHERE NOT EXISTS (SELECT 1 FROM " + tableDestino + " WHERE " + condicionesExists + ")";
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        // Devolver las consultas preparadas para que se ejecuten después
-        return consultasPreparadas;
+        // Devolver la consulta preparada
+        return consultaPreparada;
     }
 
-    // Método para ejecutar las inserciones previamente preparadas
-    public int ejecutarInserciones(Connection connDes, List<String> consultasPreparadas,
+    // Método para ejecutar la inserción preparada
+    public int ejecutarInsercion(Connection connDes, String consultaPreparada,
             ArrayList<String> camposDestino, ArrayList<String> camposOrigen, ResultSet rsOrg) {
-        
+
         int cantInsert = 0;
 
         try {
-            // Iterar sobre las consultas preparadas
-            for (String consulta : consultasPreparadas) {
-                PreparedStatement stmtInsert = connDes.prepareStatement(consulta);
+            // Preparar el statement para la consulta de inserción
+            PreparedStatement stmtInsert = connDes.prepareStatement(consultaPreparada);
 
-                // Iterar sobre los resultados de la consulta de origen
-                while (rsOrg.next()) {
-                    // Asumimos que el primer campo de los datos es el ID
-                    Object id = rsOrg.getObject(camposOrigen.get(0)); // Usamos el primer campo como ID
+            // Iterar sobre los resultados de la consulta de origen
+            while (rsOrg.next()) {
+                // Asignar valores para la consulta SELECT
+                for (int i = 0; i < camposDestino.size(); i++) {
+                    stmtInsert.setObject(i + 1, rsOrg.getObject(camposOrigen.get(i)));
+                }
+                // Asignar valores para la cláusula EXISTS
+                for (int i = 0; i < camposDestino.size(); i++) {
+                    stmtInsert.setObject(camposDestino.size() + i + 1, rsOrg.getObject(camposOrigen.get(i)));
+                }
 
-                    // Si el registro no existe en la tabla de destino, lo insertamos
-                    for (int i = 0; i < camposDestino.size(); i++) {
-                        stmtInsert.setObject(i + 1, rsOrg.getObject(camposOrigen.get(i)));
-                    }
-                    stmtInsert.setObject(camposDestino.size() + 1, id);  // ID para la cláusula EXISTS
-
-                    // Ejecutar la inserción
-                    int filasAfectadas = stmtInsert.executeUpdate();
-                    if (filasAfectadas > 0) {
-                        cantInsert++;
-                    }
+                // Ejecutar la inserción
+                int filasAfectadas = stmtInsert.executeUpdate();
+                if (filasAfectadas > 0) {
+                    cantInsert++;
                 }
             }
 
