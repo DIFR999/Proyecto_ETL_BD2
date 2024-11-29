@@ -201,7 +201,6 @@ public class ConexionDestino extends javax.swing.JFrame {
         // TODO add your handling code here:
         MenuPrincipal.UsuarioCOnexionDestino = this.cmbConexionesDD.getSelectedItem().toString();
         btnVerificarCredencialesDestino.setEnabled(true);
-        txtusuarioCredencialesDestino.setEnabled(true);
         txtPasswordCredencialesDestino.setEnabled(true);
         txtusuarioCredencialesDestino.setText(this.cmbConexionesDD.getSelectedItem().toString());
        
