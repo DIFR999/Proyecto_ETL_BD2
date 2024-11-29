@@ -19,10 +19,10 @@ public class FormularioETL extends javax.swing.JFrame {
     
     //ESTRUCTURAR PARA OBTENER LAS TABLAS DE ORIGEN
     public static ExtracionDatosOrigen tablasPorConexion = new ExtracionDatosOrigen();
-     public static ArrayList<String> tablas = new ArrayList<String>();
-         public static ArrayList<CampoDTO> camposSelectOrigen = new ArrayList<CampoDTO>();
+    public static ArrayList<String> tablas = new ArrayList<String>();
+    public static ArrayList<CampoDTO> camposSelectOrigen = new ArrayList<CampoDTO>();
 
-     
+     //Variables globales
      public static String tablaSeleccionada;
     /**
      * Creates new form FormularioETL
@@ -99,7 +99,7 @@ public class FormularioETL extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lblUsuarioBaseDestion = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        btnAgregarConexionDestion = new javax.swing.JButton();
+        btnAgregarConexionDestino = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
@@ -244,8 +244,13 @@ public class FormularioETL extends javax.swing.JFrame {
         jTextField1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTextField1.setEnabled(false);
 
-        btnAgregarConexionDestion.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
-        btnAgregarConexionDestion.setText("Agregar Conexion Data Destination");
+        btnAgregarConexionDestino.setFont(new java.awt.Font("Arial Black", 0, 16)); // NOI18N
+        btnAgregarConexionDestino.setText("Agregar Conexion Data Destination");
+        btnAgregarConexionDestino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarConexionDestinoActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         jLabel1.setText("Tabla Destino:");
@@ -254,7 +259,7 @@ public class FormularioETL extends javax.swing.JFrame {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jButton1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jButton1.setText("Mapear Campos del Destino con los campos del Origen");
+        jButton1.setText("Asignaciones Campos(Mapear)");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -270,7 +275,7 @@ public class FormularioETL extends javax.swing.JFrame {
                     .addComponent(jTextField1)
                     .addComponent(jComboBox1, 0, 433, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAgregarConexionDestion)
+                .addComponent(btnAgregarConexionDestino)
                 .addGap(31, 31, 31))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(277, Short.MAX_VALUE)
@@ -281,10 +286,11 @@ public class FormularioETL extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblUsuarioBaseDestion)
-                    .addComponent(jTextField1)
-                    .addComponent(btnAgregarConexionDestion))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblUsuarioBaseDestion)
+                        .addComponent(btnAgregarConexionDestino)))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -431,11 +437,14 @@ public class FormularioETL extends javax.swing.JFrame {
             dataConversionFRM.setVisible(true);  // Mostrar la ventana
     }//GEN-LAST:event_btnTransformarActionPerformed
 
+    private void btnAgregarConexionDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarConexionDestinoActionPerformed
+    }//GEN-LAST:event_btnAgregarConexionDestinoActionPerformed
+
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgrTipoExtraccion;
-    private javax.swing.JButton btnAgregarConexionDestion;
+    private javax.swing.JButton btnAgregarConexionDestino;
     private javax.swing.JButton btnCrearETL;
     private javax.swing.JButton btnEscogerCampos;
     private javax.swing.JButton btnExtraerBD;

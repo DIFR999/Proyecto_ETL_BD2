@@ -39,6 +39,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     
    //VARIABLES GLOBALES
     public static String UsuarioCOnexion;
+        
+
     /**
      * Creates new form MenuPrincipal
      */

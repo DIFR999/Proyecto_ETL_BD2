@@ -324,7 +324,7 @@
                       <Component id="jComboBox1" pref="433" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="btnAgregarConexionDestion" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnAgregarConexionDestino" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
@@ -338,10 +338,12 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblUsuarioBaseDestion" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jTextField1" alignment="1" max="32767" attributes="0"/>
-                      <Component id="btnAgregarConexionDestion" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblUsuarioBaseDestion" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnAgregarConexionDestino" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -372,13 +374,16 @@
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btnAgregarConexionDestion">
+        <Component class="javax.swing.JButton" name="btnAgregarConexionDestino">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial Black" size="16" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Agregar Conexion Data Destination"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarConexionDestinoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
@@ -411,7 +416,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial Black" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Mapear Campos del Destino con los campos del Origen"/>
+            <Property name="text" type="java.lang.String" value="Asignaciones Campos(Mapear)"/>
           </Properties>
         </Component>
       </SubComponents>
