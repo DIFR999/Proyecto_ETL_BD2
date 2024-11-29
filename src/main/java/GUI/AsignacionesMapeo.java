@@ -6,6 +6,7 @@ package GUI;
 
 import clases.DTO.CampoDTO;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,7 +14,8 @@ import javax.swing.JOptionPane;
  * @author Admin
  */
 public class AsignacionesMapeo extends javax.swing.JFrame {
-
+    public static DefaultListModel<String> listModelOrigen = new DefaultListModel<>();
+    public static DefaultListModel<String> listModelDestino = new DefaultListModel<>();
     /**
      * Creates new form AsignacionesMapeo
      */
@@ -22,7 +24,9 @@ public class AsignacionesMapeo extends javax.swing.JFrame {
          //Si no se selecciono campos
                  DefaultComboBoxModel camposOrigen =new DefaultComboBoxModel();
                  DefaultComboBoxModel camposDestino = new DefaultComboBoxModel();
-
+                 
+                 
+                 
             try{
                 if(FormularioETL.camposSelectOrigen.isEmpty()){
                       int i = 0;
@@ -56,7 +60,14 @@ public class AsignacionesMapeo extends javax.swing.JFrame {
                     j++;
                 }
                 
-                cmbCamposDestino.setModel(camposDestino);
+                this.cmbCamposDestino.setModel(camposDestino);
+                
+                if(listModelOrigen.isEmpty()){
+                    FormularioETL.camposSelectOrigenOrden.clear();
+                }
+                if(listModelDestino.isEmpty()){
+                    FormularioETL.camposSelectDestinoOrden.clear();
+                }
             }catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Succedio un error inesperado " + e.getMessage());
 
@@ -78,7 +89,7 @@ public class AsignacionesMapeo extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         cmbCamposOrigen = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jslCamposOrigenOrden = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         jlsCamposDestinoOrder = new javax.swing.JList<>();
         jLabel2 = new javax.swing.JLabel();
@@ -95,14 +106,19 @@ public class AsignacionesMapeo extends javax.swing.JFrame {
         jLabel1.setText("Campos Origen:");
 
         cmbCamposOrigen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbCamposOrigen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbCamposOrigenActionPerformed(evt);
+            }
+        });
 
-        jList1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        jslCamposOrigenOrden.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jslCamposOrigenOrden.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(jslCamposOrigenOrden);
 
         jlsCamposDestinoOrder.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jlsCamposDestinoOrder.setModel(new javax.swing.AbstractListModel<String>() {
@@ -121,29 +137,48 @@ public class AsignacionesMapeo extends javax.swing.JFrame {
         btnGuardarMapeo.setText("Confirmar Mapeo");
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jLabel3.setText("jLabel3");
+        jLabel3.setText("Columna de Entrada(Origen)");
 
         jLabel4.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jLabel4.setText("jLabel4");
+        jLabel4.setText("Columna de Destino");
 
         jLabel5.setFont(new java.awt.Font("Bernard MT Condensed", 0, 36)); // NOI18N
         jLabel5.setText("MAPEO DE DATOS(ASIGNACIONES)");
 
         btnAsignarMapeo.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         btnAsignarMapeo.setText("Asignar");
+        btnAsignarMapeo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAsignarMapeoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(146, 146, 146)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(18, 624, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(250, 250, 250)
                         .addComponent(jLabel5))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(420, 420, 420)
-                        .addComponent(btnAsignarMapeo))
+                        .addGap(365, 365, 365)
+                        .addComponent(btnGuardarMapeo, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(396, 396, 396)
+                        .addComponent(btnAsignarMapeo, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(jLabel1)
@@ -152,21 +187,10 @@ public class AsignacionesMapeo extends javax.swing.JFrame {
                         .addGap(36, 36, 36)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cmbCamposDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(146, 146, 146)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3))
-                                .addGap(18, 18, 18)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(365, 365, 365)
-                        .addComponent(btnGuardarMapeo, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(43, Short.MAX_VALUE))
+                            .addComponent(cmbCamposDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,9 +203,9 @@ public class AsignacionesMapeo extends javax.swing.JFrame {
                     .addComponent(cmbCamposOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(cmbCamposDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                .addGap(31, 31, 31)
                 .addComponent(btnAsignarMapeo)
-                .addGap(37, 37, 37)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel3))
@@ -196,6 +220,88 @@ public class AsignacionesMapeo extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAsignarMapeoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarMapeoActionPerformed
+        CampoDTO camposO = new CampoDTO();
+        CampoDTO camposD = new CampoDTO();
+        
+        // Obtener el elemento seleccionado del JComboBox
+        String selectedItemOrigen = (String) cmbCamposOrigen.getSelectedItem();
+        String selectedItemDestino = (String) cmbCamposDestino.getSelectedItem();
+        int indexCampoOrigen = cmbCamposOrigen.getSelectedIndex();
+        int indexCampoDestino = cmbCamposDestino.getSelectedIndex();
+        boolean existeListaOrigen = false;
+        boolean existeListaDestino  = false;  
+        String elementoDestino;
+        String elementoOrigen;
+        
+        
+        
+        if(FormularioETL.camposSelectOrigen.isEmpty()){
+            camposO = MenuPrincipal.campos.get(indexCampoOrigen);
+            camposD = FormularioETL.camposSelectDestino.get(indexCampoDestino);
+            
+            //Averiguamos si en el campo seleccionado del origen fueron transformado;
+              if(camposO.getColumnName().equals(camposO.getColumnNameConvert()) ){
+                    if((camposO.getDataType().equals( camposD.getDataType())) && ((camposO.getMaxLength())<= (camposD.getMaxLength()))){
+                             elementoOrigen = camposO.getColumnName() + " " +
+                             camposO.getDataType() + " " +
+                             camposO.getMaxLength();
+                            
+                             elementoDestino = camposD.getColumnName() + " " +
+                              camposD.getDataType() + " " +
+                               camposD.getMaxLength();
+                            for (int i = 0; i < listModelOrigen.getSize(); i++) {
+                                if (listModelOrigen.get(i).equals(elementoOrigen)) {
+                                    existeListaOrigen = true;
+                                    break;
+                                }
+                            }
+                            
+                            for (int i = 0; i < listModelDestino.getSize(); i++) {
+                                if (listModelDestino.get(i).equals(elementoDestino)) {
+                                    existeListaDestino = true;
+                                    break;
+                                }
+                            }
+
+                            if (selectedItemOrigen != null && selectedItemDestino!=null) {
+                                if(!existeListaOrigen && !existeListaDestino){                                
+                                    listModelOrigen.addElement(elementoOrigen); // Agregar al modelo de la lista
+                                    listModelDestino.addElement(elementoDestino);
+                                    jslCamposOrigenOrden.setModel(listModelOrigen);
+                                    jlsCamposDestinoOrder.setModel(listModelDestino);
+                                    
+                                    FormularioETL.camposSelectDestinoOrden.add(camposO);
+                                    FormularioETL.camposSelectDestinoOrden.add(camposD);
+                                     
+                                }else{
+                                    JOptionPane.showMessageDialog(this, "Ya mapeo esos campo");
+
+                                }  
+                            } 
+                    }else{
+                         JOptionPane.showMessageDialog(this, "Error al mapea, revise que ambos campos tenga el mismo tipo de datos o que tenga la misma o menor tamaño(Longitud)");    
+                   }         
+                    
+              }else{
+                  if(camposO.getDataType()== camposD.getDataType() && (camposO.getMaxLeghtConvert()<= camposD.getMaxLength())){
+                 
+                   }else{
+                      
+                  }
+              }
+             
+        //Si se seleciono campos
+        }else{
+            camposO = FormularioETL.camposSelectOrigen.get(cmbCamposOrigen.getSelectedIndex());
+        }
+
+    }//GEN-LAST:event_btnAsignarMapeoActionPerformed
+
+    private void cmbCamposOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCamposOrigenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbCamposOrigenActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,9 +348,9 @@ public class AsignacionesMapeo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList<String> jlsCamposDestinoOrder;
+    private javax.swing.JList<String> jslCamposOrigenOrden;
     // End of variables declaration//GEN-END:variables
 }

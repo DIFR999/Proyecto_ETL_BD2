@@ -15,40 +15,48 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class CamposPorTablaConsulta {
-    //SI SE SELECCIONA UN TABLA
-    public ArrayList<CampoDTO> obtenerCampos(Connection conn2, String table) {
-        ArrayList<CampoDTO> campos = new ArrayList<>();
-    
-        try {
-            PreparedStatement select = conn2.prepareStatement(
-                    "SELECT column_name, data_type, data_length FROM all_tab_columns WHERE table_name = ?");
-            select.setString(1, table);
-            ResultSet rslt = select.executeQuery();
-    
+   public ArrayList<CampoDTO> obtenerCampos(Connection conn2, String table) {
+    ArrayList<CampoDTO> campos = new ArrayList<>();
+
+    String query = """
+            SELECT column_name, data_type, data_length 
+            FROM user_tab_columns 
+            WHERE table_name = ?
+            ORDER BY column_id
+            """;
+
+    try (PreparedStatement select = conn2.prepareStatement(query)) {
+        // Convertir el nombre de la tabla a mayúsculas
+        select.setString(1, table.toUpperCase());
+
+        try (ResultSet rslt = select.executeQuery()) {
             while (rslt.next()) {
                 CampoDTO campoDTO = new CampoDTO();
+
+                // Asignar valores del ResultSet al objeto CampoDTO
                 campoDTO.setColumnName(rslt.getString("column_name"));
                 campoDTO.setColumnNameConvert(rslt.getString("column_name"));
                 campoDTO.setAlias(rslt.getString("column_name"));
                 campoDTO.setDataType(rslt.getString("data_type"));
-                
-                // Verificamos si el tipo de dato es VARCHAR2
-                if ("VARCHAR2".equals(rslt.getString("data_type"))) {
-                    // Si es VARCHAR2, obtenemos la longitud máxima
-                    int maxLength = rslt.getInt("data_length");
-                    // Establecemos la longitud máxima en el objeto CampoDTO
-                    campoDTO.setMaxLength(maxLength);
-                    campoDTO.setMaxLeghtConvert(maxLength);
+
+                // Verificar si el tipo de dato es VARCHAR2 y asignar longitud
+                if ("VARCHAR2".equalsIgnoreCase(rslt.getString("data_type"))) {
+                    campoDTO.setMaxLength(rslt.getInt("data_length"));
+                    campoDTO.setMaxLeghtConvert(rslt.getInt("data_length"));
                 }
-    
+
+                // Agregar el objeto a la lista
                 campos.add(campoDTO);
             }
-            return campos;
-        } catch (Exception e) {
-            System.out.println(e);
-            return null;
         }
+    } catch (SQLException e) {
+        System.out.println("Error al obtener campos: " + e.getMessage());
+        e.printStackTrace();
     }
+
+    return campos;
+}
+
 
     //SI SE SELECCIONA UNA CONSULTA
     public ArrayList<CampoDTO> obtenerCamposConsulta(Connection conn2, String consulta) throws SQLException {

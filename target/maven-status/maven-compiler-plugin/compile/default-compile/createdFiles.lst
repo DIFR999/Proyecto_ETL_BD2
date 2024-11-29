@@ -8,6 +8,7 @@ GUI\AsignacionesMapeo.class
 GUI\DataConversion$1.class
 GUI\FormularioETL$6.class
 GUI\FormularioETL$9.class
+GUI\AsignacionesMapeo$4.class
 GUI\AsignacionesMapeo$1.class
 GUI\DataConversion.class
 GUI\frmConexionOrigen$5.class
@@ -31,6 +32,7 @@ GUI\ConexionDestino$4.class
 GUI\MenuPrincipal$2.class
 clases\ConexionGBD.class
 GUI\frmConexionOrigen$4.class
+GUI\FormularioETL$10.class
 GUI\DataConversion$6.class
 GUI\ConexionDestino.class
 GUI\MenuPrincipal$6.class
@@ -53,4 +55,5 @@ GUI\ConexionDestino$2.class
 GUI\frmConexionOrigen$1.class
 GUI\DataConversion$5.class
 GUI\CredecialesConexion.class
+GUI\AsignacionesMapeo$5.class
 GUI\FormularioETL$5.class

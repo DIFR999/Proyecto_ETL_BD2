@@ -283,6 +283,11 @@ public class FormularioETL extends javax.swing.JFrame {
 
         cmbTablasDestino.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         cmbTablasDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbTablasDestino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTablasDestinoActionPerformed(evt);
+            }
+        });
 
         btnAsignacionesCampos.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         btnAsignacionesCampos.setText("Asignaciones Campos(Mapear)");
@@ -506,6 +511,9 @@ public class FormularioETL extends javax.swing.JFrame {
             
        
     }//GEN-LAST:event_btnAsignacionesCamposActionPerformed
+
+    private void cmbTablasDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTablasDestinoActionPerformed
+    }//GEN-LAST:event_cmbTablasDestinoActionPerformed
 
    
 
