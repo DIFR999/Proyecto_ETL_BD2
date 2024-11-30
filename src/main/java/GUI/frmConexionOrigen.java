@@ -28,6 +28,11 @@ public class frmConexionOrigen extends javax.swing.JFrame {
         btnConectarOrigen.setEnabled((false));
         lblconOrigen.setEnabled((false));
         cmbConexionesD.setEnabled(false);
+        
+         if(MenuPrincipal.conexiones==null){
+             btnVerificarUserAdmin.setEnabled(true);
+        }
+        
     }
 
     /**

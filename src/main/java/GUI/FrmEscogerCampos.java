@@ -22,7 +22,7 @@ public class FrmEscogerCampos extends javax.swing.JFrame {
         initComponents();
         jlsCamposSeleccionados.setEnabled(false);
         jlsCamposSeleccionados.setBackground(Color.WHITE);
-        
+        btnGuardarCampos.setEnabled(false);
         if (FormularioETL.jrbConsulta.isSelected()) {
             lbltabla.setText("CONSULTA");
         }else if(FormularioETL.jrbTabla.isSelected()){
@@ -60,6 +60,7 @@ public class FrmEscogerCampos extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jlsCamposSeleccionados = new javax.swing.JList<>();
         lbltabla = new javax.swing.JLabel();
+        btnGuardarCampos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -92,6 +93,14 @@ public class FrmEscogerCampos extends javax.swing.JFrame {
         lbltabla.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         lbltabla.setText("TABLA");
 
+        btnGuardarCampos.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        btnGuardarCampos.setText("Guardar campos");
+        btnGuardarCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarCamposActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -99,23 +108,26 @@ public class FrmEscogerCampos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(254, 254, 254)
-                        .addComponent(btnAgregarC))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lbltabla))))
+                                .addComponent(lbltabla))
+                            .addComponent(jLabel2)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(139, 139, 139)
                         .addComponent(cmbCamposTablaOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(201, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(254, 254, 254)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnGuardarCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAgregarC))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,8 +140,10 @@ public class FrmEscogerCampos extends javax.swing.JFrame {
                 .addComponent(cmbCamposTablaOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addComponent(btnAgregarC)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(btnGuardarCampos))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -199,6 +213,10 @@ public class FrmEscogerCampos extends javax.swing.JFrame {
             
     }//GEN-LAST:event_btnAgregarCActionPerformed
 
+    private void btnGuardarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCamposActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGuardarCamposActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -206,6 +224,7 @@ public class FrmEscogerCampos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarC;
+    private javax.swing.JButton btnGuardarCampos;
     private javax.swing.JComboBox<String> cmbCamposTablaOrigen;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -245,7 +245,15 @@ public class AsignacionesMapeo extends javax.swing.JFrame {
         if(FormularioETL.camposSelectOrigen.isEmpty()){
             camposO = MenuPrincipal.campos.get(indexCampoOrigen);
             camposD = FormularioETL.camposSelectDestino.get(indexCampoDestino);
-            
+          
+        //Si se seleciono campos
+        }else{
+            camposO = FormularioETL.camposSelectOrigen.get(cmbCamposOrigen.getSelectedIndex());
+             camposD = FormularioETL.camposSelectDestino.get(indexCampoDestino);
+        }
+        
+        
+          
             //Averiguamos si en el campo seleccionado del origen fueron transformado;
               if(camposO.getColumnName().equals(camposO.getColumnNameConvert()) ){
                     if((camposO.getDataType().equals( camposD.getDataType())) && ((camposO.getMaxLength())<= (camposD.getMaxLength()))){
@@ -292,16 +300,49 @@ public class AsignacionesMapeo extends javax.swing.JFrame {
                     
               }else{
                   if(camposO.getDataType()== camposD.getDataType() && (camposO.getMaxLeghtConvert()<= camposD.getMaxLength())){
-                 
+                      elementoOrigen = camposO.getAlias()+ " " + 
+                             camposO.getDataType() + " " +
+                             camposO.getMaxLeghtConvert();
+                            
+                             elementoDestino = camposD.getColumnName() + " " +
+                              camposD.getDataType() + " " +
+                               camposD.getMaxLength();
+                            for (int i = 0; i < listModelOrigen.getSize(); i++) {
+                                if (listModelOrigen.get(i).equals(elementoOrigen)) {
+                                    existeListaOrigen = true;
+                                    break;
+                                }
+                            }
+                            
+                            for (int i = 0; i < listModelDestino.getSize(); i++) {
+                                if (listModelDestino.get(i).equals(elementoDestino)) {
+                                    existeListaDestino = true;
+                                    break;
+                                }
+                            }
+
+                            if (selectedItemOrigen != null && selectedItemDestino!=null) {
+                                if(!existeListaOrigen && !existeListaDestino){                                
+                                    listModelOrigen.addElement(elementoOrigen); // Agregar al modelo de la lista
+                                    listModelDestino.addElement(elementoDestino);
+                                    jslCamposOrigenOrden.setModel(listModelOrigen);
+                                    jlsCamposDestinoOrder.setModel(listModelDestino);
+                                    
+                                    FormularioETL.camposSelectOrigenOrden.add(camposO);
+                                    FormularioETL.camposSelectDestinoOrden.add(camposD);
+                                        // Depuración para ArrayList camposDestino
+           
+                                }else{
+                                    JOptionPane.showMessageDialog(this, "Ya mapeo esos campo");
+
+                                }  
+                            } 
                    }else{
-                      
+                        JOptionPane.showMessageDialog(this, "Error al mapea, revise que ambos campos tenga el mismo tipo de datos o que tenga la misma o menor tamaño(Longitud)");    
+ 
                   }
               }
              
-        //Si se seleciono campos
-        }else{
-            camposO = FormularioETL.camposSelectOrigen.get(cmbCamposOrigen.getSelectedIndex());
-        }
 
     }//GEN-LAST:event_btnAsignarMapeoActionPerformed
 

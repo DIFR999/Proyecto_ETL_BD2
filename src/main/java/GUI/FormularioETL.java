@@ -109,7 +109,19 @@ public class FormularioETL extends javax.swing.JFrame {
             }
         });
     }
-
+    public void LimpiarVariables(){
+        camposSelectOrigen.clear();
+        camposSelectDestino.clear();
+        
+        camposSelectDestinoOrdenFinal.clear();
+        camposSelectOrigenOrdenFinal.clear();
+        MenuPrincipal.campos.clear();
+        
+        tablaSeleccionada="";
+        tablaDEstinoSeleccionada="";
+        Consulta="";
+                
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -322,11 +334,11 @@ public class FormularioETL extends javax.swing.JFrame {
                     .addComponent(cmbTablasDestino, 0, 433, Short.MAX_VALUE))
                 .addGap(39, 39, 39)
                 .addComponent(btnAgregarConexionDestino)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(381, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAsignacionesCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(216, 216, 216))
+                .addGap(263, 263, 263))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -550,6 +562,8 @@ public class FormularioETL extends javax.swing.JFrame {
        
                 CosultaInsert = CrearInsercion.prepararInsercion(CredecialesConexion.conOrigen,camposSelectDestinoOrdenFinal, 
                         camposSelectOrigenOrdenFinal, tablaSeleccionada, tablaDEstinoSeleccionada, true);
+                
+                
                 
                  MenuPrincipal.InserccionesDimensionesETL.add(CosultaInsert);
             }else {
