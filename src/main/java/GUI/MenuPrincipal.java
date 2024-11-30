@@ -32,7 +32,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public static ArrayList<CampoDTO> campos = new ArrayList<CampoDTO>();
     
     //GUARDAR TODAS INSERCCIONES DE UN DATAMART(DIMENESIONES)
-    public static ArrayList<ArrayList<String>> InserccionesETL = new ArrayList<String>() ;
+    public static ArrayList<ArrayList<String>> InserccionesETL = new ArrayList<>(); ;
    
     
    
