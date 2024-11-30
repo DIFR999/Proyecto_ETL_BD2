@@ -100,17 +100,14 @@ public int ejecutarInsercion(Connection connDes, Connection connOrg, String cons
 
         // Verificar cuántas columnas tiene el ResultSet
         int columnCount = rsOrg.getMetaData().getColumnCount();
-        System.out.println("Número de columnas en el ResultSet: " + columnCount);
 
         // Si no hay datos en el ResultSet, regresar 0
         if (!rsOrg.isBeforeFirst()) {
-            System.out.println("No se encontraron datos en la consulta de origen.");
             return 0;
         }
 
         // Iterar sobre los resultados de la consulta de origen
         while (rsOrg.next()) {
-            System.out.println("Procesando fila con id: " + rsOrg.getObject(1)); // Asumiendo que la primera columna es el ID
 
             // Iterar por todas las columnas
             for (int i = 1; i <= columnCount; i++) {
@@ -119,14 +116,11 @@ public int ejecutarInsercion(Connection connDes, Connection connOrg, String cons
                     String columnName = rsOrg.getMetaData().getColumnName(i);
 
                     // Depuración: Verificar el valor de la columna
-                    System.out.println("Valor de la columna " + columnName + ": " + rsOrg.getObject(i));
 
                     // Verificar si el tipo de columna es DATE
                     if (rsOrg.getMetaData().getColumnType(i) == java.sql.Types.DATE) {
-                        System.out.println("Procesando fecha en columna: " + columnName);
                         stmtInsert.setDate(i, rsOrg.getDate(i));
                     } else if (rsOrg.getMetaData().getColumnType(i) == java.sql.Types.TIMESTAMP) {
-                        System.out.println("Procesando TIMESTAMP en columna: " + columnName);
                         stmtInsert.setTimestamp(i, rsOrg.getTimestamp(i)); // Manejar tipo TIMESTAMP
                     } else {
                         stmtInsert.setObject(i, rsOrg.getObject(i)); // Otros tipos de datos
@@ -142,7 +136,6 @@ public int ejecutarInsercion(Connection connDes, Connection connOrg, String cons
             for (int i = 1; i <= camposOrigen.size(); i++) {
                 try {
                     // Imprimir los valores de los parámetros antes de establecerlos
-                    System.out.println("Estableciendo parámetro " + i + ": " + rsOrg.getObject(i));
 
                     // Asegurarse de que los parámetros sean correctos según el tipo de columna
                     if (rsOrg.getMetaData().getColumnType(i) == java.sql.Types.TIMESTAMP) {
@@ -161,7 +154,6 @@ public int ejecutarInsercion(Connection connDes, Connection connOrg, String cons
 
             // Ejecutar la inserción y contar filas afectadas
             int filasAfectadas = stmtInsert.executeUpdate();
-            System.out.println("Filas afectadas por la inserción: " + filasAfectadas);
 
             if (filasAfectadas > 0) {
                 cantInsert++;

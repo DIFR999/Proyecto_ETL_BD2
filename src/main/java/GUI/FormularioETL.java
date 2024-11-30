@@ -49,6 +49,7 @@ public class FormularioETL extends javax.swing.JFrame {
      public static String tablaSeleccionada;
      public static String tablaDEstinoSeleccionada;
      public static String Consulta;
+     public static String tipoT;
      
      
      
@@ -71,7 +72,17 @@ public class FormularioETL extends javax.swing.JFrame {
         }
        
         
-        
+        String tiposT[] = {"Dimension","Hechos"};
+          int inputCb;
+          JComboBox tipoTabla = new JComboBox(tiposT);
+          
+          
+            inputCb = JOptionPane.showConfirmDialog(this, tipoTabla, "Seleccione el tipo de tabla que sera el ETL:", 
+                           JOptionPane.DEFAULT_OPTION);
+            
+            if(inputCb == JOptionPane.OK_OPTION){
+                 tipoT = (String) tipoTabla.getSelectedItem();   
+            }
     }
     
    
@@ -551,16 +562,13 @@ public class FormularioETL extends javax.swing.JFrame {
 
     private void btnCrearETLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearETLActionPerformed
           IngresarDatosDestino CrearInsercion = new IngresarDatosDestino();
-          String tiposT[] = {"Dimension","Hechos"};
-          int inputCb;
-          JComboBox tipoTabla = new JComboBox(tiposT);
+          
           String CosultaInsert;
         try {
             
             
            // JOptionPane.showMessageDialog(this, "Sucedio un error inesperado al momento de obtener los campos de la tabla de destino: ");
             if(jrbTabla.isSelected()){
-       
                 CosultaInsert = CrearInsercion.prepararInsercion(CredecialesConexion.conOrigen,camposSelectDestinoOrdenFinal, 
                 camposSelectOrigenOrdenFinal, tablaSeleccionada, tablaDEstinoSeleccionada, true);
                 JOptionPane.showMessageDialog(this, "Se creo el ETL correctamente");
