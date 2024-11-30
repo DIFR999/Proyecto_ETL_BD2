@@ -267,13 +267,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 
                 if(fromTable){
                     for(int j = 0; j<InserccionesETL.size();j++){
-                        ConsultaInserccion = InserccionesETL.get(j).get(InserccionesETL.get(j).size()-1)
+                        ConsultaInserccion = InserccionesETL.get(j).get(InserccionesETL.get(j).size()-1);
                         EjecutarConsulta.ejecutarInsercion(ConexionDestino.conDestino, CredecialesConexion.conOrigen, ConsultaInserccion,
                             FormularioETL.tablaSeleccionada,true, CamposOrigenSelecTFinal.get(j));
                 }
                 }else{
                     for(int j = 0; j<InserccionesDimensionesETL.size();j++){
-                        ConsultaInserccion = InserccionesETL.get(j).get(InserccionesETL.get(j).size()-1)
+                        ConsultaInserccion = InserccionesETL.get(j).get(InserccionesETL.get(j).size()-1);
 
                         EjecutarConsulta.ejecutarInsercion(ConexionDestino.conDestino, CredecialesConexion.conOrigen, ConsultaInserccion,
                                 FormularioETL.Consulta,false, CamposOrigenSelecTFinal.get(j));
