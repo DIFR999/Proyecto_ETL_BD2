@@ -8,7 +8,6 @@ import clases.CamposPorTablaConsulta;
 import clases.ConexionesDisponible;
 import clases.DTO.CampoDTO;
 import clases.DTO.ConexionDTO;
-import clases.DTO.TABLADTO;
 import clases.IngresarDatosDestino;
 import java.awt.Dimension;
 import java.sql.SQLException;
@@ -260,7 +259,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         IngresarDatosDestino EjecutarConsulta = new IngresarDatosDestino();
         String ConsultaInserccion;
         try{
-            if(InserccionesDimensionesETL.isEmpty() && InserccionesTHechosETL.isEmpty()){
+            if(InserccionesETL.isEmpty()){
             JOptionPane.showMessageDialog(this, "DEBER TENER CREANDO A QUE SEA UN TABLA DE HECHOS Y UNA TABLA DE DIMENSIONES");
 
             }else{
@@ -272,7 +271,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                             FormularioETL.tablaSeleccionada,true, CamposOrigenSelecTFinal.get(j));
                 }
                 }else{
-                    for(int j = 0; j<InserccionesDimensionesETL.size();j++){
+                    for(int j = 0; j<InserccionesETL.size();j++){
                         ConsultaInserccion = InserccionesETL.get(j).get(InserccionesETL.get(j).size()-1);
 
                         EjecutarConsulta.ejecutarInsercion(ConexionDestino.conDestino, CredecialesConexion.conOrigen, ConsultaInserccion,
