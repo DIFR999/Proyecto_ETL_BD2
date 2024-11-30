@@ -72,7 +72,7 @@ public class FormularioETL extends javax.swing.JFrame {
         }
        
         
-        String tiposT[] = {"Dimension","Hechos"};
+        String tiposT[] = {"Dimension","Hecho"};
           int inputCb;
           JComboBox tipoTabla = new JComboBox(tiposT);
           
@@ -562,17 +562,20 @@ public class FormularioETL extends javax.swing.JFrame {
 
     private void btnCrearETLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearETLActionPerformed
           IngresarDatosDestino CrearInsercion = new IngresarDatosDestino();
-          
+            ArrayList<String> fila = new ArrayList<>();
           String CosultaInsert;
         try {
             
             
+           
            // JOptionPane.showMessageDialog(this, "Sucedio un error inesperado al momento de obtener los campos de la tabla de destino: ");
             if(jrbTabla.isSelected()){
                 CosultaInsert = CrearInsercion.prepararInsercion(CredecialesConexion.conOrigen,camposSelectDestinoOrdenFinal, 
                 camposSelectOrigenOrdenFinal, tablaSeleccionada, tablaDEstinoSeleccionada, true);
                 JOptionPane.showMessageDialog(this, "Se creo el ETL correctamente");
-                 MenuPrincipal.InserccionesDimensionesETL.add(CosultaInsert);
+                fila.add(tipoT);
+                fila.add(CosultaInsert);
+                MenuPrincipal.InserccionesETL.add(fila);
                 dispose();
 
                 
@@ -583,7 +586,9 @@ public class FormularioETL extends javax.swing.JFrame {
                 CosultaInsert = CrearInsercion.prepararInsercion(CredecialesConexion.conOrigen,camposSelectDestinoOrdenFinal, 
                 camposSelectOrigenOrdenFinal, Consulta, tablaDEstinoSeleccionada, false);
                 JOptionPane.showMessageDialog(this, "Se creo el ETL correctamente");
-                MenuPrincipal.InserccionesDimensionesETL.add(CosultaInsert);
+                 fila.add(tipoT);
+                fila.add(CosultaInsert);
+                MenuPrincipal.InserccionesETL.add(fila);
                 dispose();
                 
                 

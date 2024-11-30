@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 
 public class MenuPrincipal extends javax.swing.JFrame {
     
-    //CONEXIONES PARA EL ORIGEN
+    //CONEXIONES Y TABLAS PARA EL ORIGEN
     public static ConexionesDisponible conexionesDisponibles = new ConexionesDisponible();
     public static ArrayList<ConexionDTO> conexiones = new ArrayList<ConexionDTO>();
     public static ConexionDTO ConexionOrigen  = new ConexionDTO();
@@ -29,18 +29,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     //CONEXINES PARA EL DESTINO
     public static ConexionDTO conexionDestino = new ConexionDTO();
 				
-    // CREAMOS LA ESTRUCTURA PARA OBTENER LOS CAMPOS DE LA TABLA ORIGEN
+    // CREAMOS LA ESTRUCTURA PARA OBTENER LOS CAMPOS DE LA TABLA ORIGEN Y DESTINO
     public static CamposPorTablaConsulta camposPorTabla = new CamposPorTablaConsulta();
     public static ArrayList<CampoDTO> campos = new ArrayList<CampoDTO>();
     
     //GUARDAR TODAS INSERCCIONES DE UN DATAMART(DIMENESIONES)
-    public static ArrayList<String> InserccionesDimensionesETL = new ArrayList<String>() ;
-    public static ArrayList<String> NombreDimesionesInserccion = new ArrayList<String>();
+    public static ArrayList<ArrayList<String>> InserccionesETL = new ArrayList<String>() ;
+   
     
-    
-    //GUARDAR TODAS INSERCCIONES DE UN DATAMART(Tabla de hechos)
-    public static ArrayList<String> InserccionesTHechosETL = new ArrayList<String>() ;
-    public static ArrayList<String> NombreThecosInserccion = new ArrayList<String>();
+   
     public static ArrayList<ArrayList<String>> CamposOrigenSelecTFinal = new ArrayList<>();
     public static frmConexionOrigen frmCONOR = new frmConexionOrigen();
     
@@ -51,10 +48,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     
    //VARIABLES GLOBALES
-    public static String UsuarioCOnexion;
-    public static String UsuarioCOnexionDestino;
-     public static String UserAdministrador, PasswordAdministrador;   
-     public static boolean fromTable;
+   public static String UsuarioCOnexion;
+   public static String UsuarioCOnexionDestino;
+   public static String UserAdministrador, PasswordAdministrador;   
+   public static boolean fromTable;
 
     /**
      * Creates new form MenuPrincipal
@@ -265,7 +262,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void btnEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEjecutarActionPerformed
         IngresarDatosDestino EjecutarConsulta = new IngresarDatosDestino();
-        
+        String ConsultaInserccion;
         try{
             if(InserccionesDimensionesETL.isEmpty() && InserccionesTHechosETL.isEmpty()){
             JOptionPane.showMessageDialog(this, "DEBER TENER CREANDO A QUE SEA UN TABLA DE HECHOS Y UNA TABLA DE DIMENSIONES");
@@ -273,14 +270,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }else{
                 
                 if(fromTable){
-                    for(int j = 0; j<InserccionesDimensionesETL.size();j++){
-                    EjecutarConsulta.ejecutarInsercion(ConexionDestino.conDestino, CredecialesConexion.conOrigen, InserccionesDimensionesETL.get(j),
+                    for(int j = 0; j<InserccionesETL.size();j++){
+                        ConsultaInserccion = InserccionesETL.get(j).get(InserccionesETL.get(j).size()-1)
+                        EjecutarConsulta.ejecutarInsercion(ConexionDestino.conDestino, CredecialesConexion.conOrigen, ConsultaInserccion,
                             FormularioETL.tablaSeleccionada,true, CamposOrigenSelecTFinal.get(j));
                 }
                 }else{
                     for(int j = 0; j<InserccionesDimensionesETL.size();j++){
-                    EjecutarConsulta.ejecutarInsercion(ConexionDestino.conDestino, CredecialesConexion.conOrigen, InserccionesDimensionesETL.get(j),
-                            FormularioETL.Consulta,false, CamposOrigenSelecTFinal.get(j));
+                        ConsultaInserccion = InserccionesETL.get(j).get(InserccionesETL.get(j).size()-1)
+
+                        EjecutarConsulta.ejecutarInsercion(ConexionDestino.conDestino, CredecialesConexion.conOrigen, ConsultaInserccion,
+                                FormularioETL.Consulta,false, CamposOrigenSelecTFinal.get(j));
                 }
                 }
                 
