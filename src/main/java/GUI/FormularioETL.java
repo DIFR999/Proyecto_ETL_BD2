@@ -50,7 +50,7 @@ public class FormularioETL extends javax.swing.JFrame {
      public static String tablaDEstinoSeleccionada;
      public static String Consulta;
      public static String tipoT;
-     
+     public static String NombreETL=null;
      
      
     /**
@@ -82,6 +82,17 @@ public class FormularioETL extends javax.swing.JFrame {
             
             if(inputCb == JOptionPane.OK_OPTION){
                  tipoT = (String) tipoTabla.getSelectedItem();   
+            }
+            
+            NombreETL = JOptionPane.showInputDialog("Ingrese un nombre al ETL:");
+            
+            if(NombreETL==null){
+                if(tiposT.equals("Dimension")){
+                    NombreETL = "Tabla de Dimensión "+ (String.valueOf((MenuPrincipal.InserccionesETL.size()+1)));
+                }else if(tiposT.equals("Hecho")){
+                    NombreETL = "Tabla de Hecho "+ (String.valueOf((MenuPrincipal.InserccionesETL.size()+1)));
+                }
+                
             }
     }
     
@@ -562,8 +573,10 @@ public class FormularioETL extends javax.swing.JFrame {
 
     private void btnCrearETLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearETLActionPerformed
           IngresarDatosDestino CrearInsercion = new IngresarDatosDestino();
-            ArrayList<String> fila = new ArrayList<>();
+          ArrayList<String> fila = new ArrayList<>();
           String CosultaInsert;
+          
+          
         try {
             
             
@@ -574,6 +587,7 @@ public class FormularioETL extends javax.swing.JFrame {
                 camposSelectOrigenOrdenFinal, tablaSeleccionada, tablaDEstinoSeleccionada, true);
                 JOptionPane.showMessageDialog(this, "Se creo el ETL correctamente");
                 fila.add(tipoT);
+                fila.add(NombreETL);
                 fila.add(CosultaInsert);
                 MenuPrincipal.InserccionesETL.add(fila);
                 dispose();
@@ -586,7 +600,8 @@ public class FormularioETL extends javax.swing.JFrame {
                 CosultaInsert = CrearInsercion.prepararInsercion(CredecialesConexion.conOrigen,camposSelectDestinoOrdenFinal, 
                 camposSelectOrigenOrdenFinal, Consulta, tablaDEstinoSeleccionada, false);
                 JOptionPane.showMessageDialog(this, "Se creo el ETL correctamente");
-                 fila.add(tipoT);
+                fila.add(tipoT);
+                fila.add(NombreETL);
                 fila.add(CosultaInsert);
                 MenuPrincipal.InserccionesETL.add(fila);
                 dispose();
