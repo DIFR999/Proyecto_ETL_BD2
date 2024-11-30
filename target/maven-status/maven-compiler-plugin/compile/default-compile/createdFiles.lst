@@ -22,6 +22,7 @@ GUI\ConexionDestino$3.class
 GUI\DataConversion$7.class
 GUI\FormularioETL.class
 GUI\frmConexionOrigen$3.class
+GUI\FormularioETL$11.class
 clases\DTO\TABLADTO.class
 GUI\MenuPrincipal$5.class
 clases\ExtracionDatosOrigen.class
@@ -38,6 +39,7 @@ GUI\ConexionDestino.class
 GUI\MenuPrincipal$6.class
 GUI\CredecialesConexion$1.class
 GUI\FormularioETL$4.class
+GUI\AsignacionesMapeo$6.class
 clases\DTO\CampoDTO.class
 clases\IngresarDatosDestino.class
 GUI\ConexionDestino$1.class
@@ -52,6 +54,7 @@ GUI\DataConversion$2.class
 clases\ConexionesDisponible.class
 GUI\frmConexionOrigen.class
 GUI\ConexionDestino$2.class
+GUI\MenuPrincipal$7.class
 GUI\frmConexionOrigen$1.class
 GUI\DataConversion$5.class
 GUI\CredecialesConexion.class

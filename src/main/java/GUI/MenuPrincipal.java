@@ -9,7 +9,9 @@ import clases.ConexionesDisponible;
 import clases.DTO.CampoDTO;
 import clases.DTO.ConexionDTO;
 import clases.DTO.TABLADTO;
+import clases.IngresarDatosDestino;
 import java.awt.Dimension;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -31,20 +33,27 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public static CamposPorTablaConsulta camposPorTabla = new CamposPorTablaConsulta();
     public static ArrayList<CampoDTO> campos = new ArrayList<CampoDTO>();
     
-    //GUARDAR TODAS INSERCCIONES DE UN DATAMART
-    public static ArrayList<String> InserccionesETL = new ArrayList<String>() ;
+    //GUARDAR TODAS INSERCCIONES DE UN DATAMART(DIMENESIONES)
+    public static ArrayList<String> InserccionesDimensionesETL = new ArrayList<String>() ;
+    public static ArrayList<String> NombreDimesionesInserccion = new ArrayList<String>();
     
     
+    //GUARDAR TODAS INSERCCIONES DE UN DATAMART(Tabla de hechos)
+    public static ArrayList<String> InserccionesTHechosETL = new ArrayList<String>() ;
+    public static ArrayList<String> NombreThecosInserccion = new ArrayList<String>();
     
     public static frmConexionOrigen frmCONOR = new frmConexionOrigen();
 
     
     public static MenuPrincipal menu = new MenuPrincipal();
     
+
+    
    //VARIABLES GLOBALES
     public static String UsuarioCOnexion;
     public static String UsuarioCOnexionDestino;
      public static String UserAdministrador, PasswordAdministrador;   
+     public static boolean fromTable;
 
     /**
      * Creates new form MenuPrincipal
@@ -91,6 +100,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         btnEjecutar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         btnEjecutar.setText("Ejecutar ETL");
+        btnEjecutar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEjecutarActionPerformed(evt);
+            }
+        });
 
         btnSalir.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
         btnSalir.setText("Salir");
@@ -247,6 +261,25 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // Hacer visible el JFrame
         frmCONOR.setVisible(true);  // Mostrar la ventana
     }//GEN-LAST:event_btnConexionOrigenActionPerformed
+
+    private void btnEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEjecutarActionPerformed
+        IngresarDatosDestino EjecutarConsulta = new IngresarDatosDestino();
+        
+        try{
+            if(InserccionesDimensionesETL.isEmpty() && InserccionesTHechosETL.isEmpty()){
+            JOptionPane.showMessageDialog(this, "DEBER TENER CREANDO A QUE SEA UN TABLA DE HECHOS Y UNA TABLA DE DIMENSIONES");
+
+            }else{
+                for(int j = 0; j<InserccionesDimensionesETL.size();j++){
+                    EjecutarConsulta.ejecutarInsercion(ConexionDestino.conDestino, InserccionesDimensionesETL.get(j),FormularioETL.tablaSeleccionada,fromTable);
+                }
+            } 
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Succedio un error inesperado al momento de insertar datos "+ e.getMessage());
+
+        }
+       
+    }//GEN-LAST:event_btnEjecutarActionPerformed
 
     /**
      * @param args the command line arguments

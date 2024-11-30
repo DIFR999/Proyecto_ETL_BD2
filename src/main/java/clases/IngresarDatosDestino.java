@@ -58,38 +58,51 @@ public class IngresarDatosDestino {
         return consultaPreparada;
     }
 
-    // Método para ejecutar la inserción preparada
-    public int ejecutarInsercion(Connection connDes, String consultaPreparada,
-            ArrayList<String> camposDestino, ArrayList<String> camposOrigen, ResultSet rsOrg) {
+   public int ejecutarInsercion(Connection connDes, String consultaPreparada,
+                             String tableOrigen, boolean fromTable) {
 
-        int cantInsert = 0;
+    int cantInsert = 0;
 
-        try {
-            // Preparar el statement para la consulta de inserción
-            PreparedStatement stmtInsert = connDes.prepareStatement(consultaPreparada);
-
-            // Iterar sobre los resultados de la consulta de origen
-            while (rsOrg.next()) {
-                // Asignar valores para la consulta SELECT
-                for (int i = 0; i < camposDestino.size(); i++) {
-                    stmtInsert.setObject(i + 1, rsOrg.getObject(camposOrigen.get(i)));
-                }
-                // Asignar valores para la cláusula EXISTS
-                for (int i = 0; i < camposDestino.size(); i++) {
-                    stmtInsert.setObject(camposDestino.size() + i + 1, rsOrg.getObject(camposOrigen.get(i)));
-                }
-
-                // Ejecutar la inserción
-                int filasAfectadas = stmtInsert.executeUpdate();
-                if (filasAfectadas > 0) {
-                    cantInsert++;
-                }
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+    try {
+        // Preparar la consulta de origen
+        String sqlOrigen;
+        if (fromTable) {
+            // Si es una tabla, armamos un SELECT
+            sqlOrigen = "SELECT * FROM " + tableOrigen; // Se asume que seleccionas todas las columnas de la tabla
+        } else {
+            // Si es una consulta, usamos el valor de `tableOrigen` como la consulta completa
+            sqlOrigen = tableOrigen;
         }
 
-        return cantInsert;
+        // Ejecutar la consulta de origen para obtener los datos
+        PreparedStatement stmtOrg = connDes.prepareStatement(sqlOrigen);
+        ResultSet rsOrg = stmtOrg.executeQuery();
+
+        // Preparar la consulta de inserción
+        PreparedStatement stmtInsert = connDes.prepareStatement(consultaPreparada);
+
+        // Iterar sobre los resultados de la consulta de origen
+        while (rsOrg.next()) {
+            // Asignar los valores de la fila del ResultSet a la consulta de inserción
+            for (int i = 1; i <= rsOrg.getMetaData().getColumnCount(); i++) {
+                stmtInsert.setObject(i, rsOrg.getObject(i));
+            }
+
+            // Ejecutar la inserción
+            int filasAfectadas = stmtInsert.executeUpdate();
+            if (filasAfectadas > 0) {
+                cantInsert++;
+            }
+        }
+
+        rsOrg.close();
+        stmtOrg.close();
+
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+
+    return cantInsert;
+}
+
 }

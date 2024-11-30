@@ -8,9 +8,11 @@ import clases.CamposPorTablaConsulta;
 import clases.DTO.CampoDTO;
 import clases.DTO.ConexionDTO;
 import clases.ExtracionDatosOrigen;
+import clases.IngresarDatosDestino;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,6 +26,7 @@ public class FormularioETL extends javax.swing.JFrame {
     public static ArrayList<String> tablas = new ArrayList<String>();
     public static ArrayList<CampoDTO> camposSelectOrigen = new ArrayList<CampoDTO>();
     
+    
         //ESTRUCTURAR PARA OBTENER LAS TABLAS DE DESTINO
     public static ExtracionDatosOrigen tablasPorConexionDestino = new ExtracionDatosOrigen();
     public static ArrayList<String> tablasDestino = new ArrayList<String>();
@@ -36,11 +39,18 @@ public class FormularioETL extends javax.swing.JFrame {
         public static ArrayList<CampoDTO> camposSelectOrigenOrden = new ArrayList<CampoDTO>();
 
         public static ArrayList<CampoDTO> camposSelectDestinoOrden = new ArrayList<CampoDTO>();
+        
+        //Lista de campos ya pasado por todo el procesod en ETL;
+        public static ArrayList<String> camposSelectDestinoOrdenFinal = new ArrayList<String>();
+        public static ArrayList<String> camposSelectOrigenOrdenFinal = new ArrayList<String>();
+
 
      //Variables globales
      public static String tablaSeleccionada;
      public static String tablaDEstinoSeleccionada;
      public static String Consulta;
+     
+     
      
     /**
      * Creates new form FormularioETL
@@ -259,7 +269,7 @@ public class FormularioETL extends javax.swing.JFrame {
             .addGroup(pnlDataConversionLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(btnTransformar)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "CARGA", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Gloucester MT Extra Condensed", 0, 18))); // NOI18N
@@ -310,13 +320,13 @@ public class FormularioETL extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtBaseDestino)
                     .addComponent(cmbTablasDestino, 0, 433, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addGap(39, 39, 39)
                 .addComponent(btnAgregarConexionDestino)
-                .addGap(31, 31, 31))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAsignacionesCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(239, 239, 239))
+                .addContainerGap(381, Short.MAX_VALUE)
+                .addComponent(btnAsignacionesCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(216, 216, 216))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -325,26 +335,27 @@ public class FormularioETL extends javax.swing.JFrame {
                     .addComponent(lblUsuarioBaseDestion)
                     .addComponent(txtBaseDestino)
                     .addComponent(btnAgregarConexionDestino, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbTablasDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(40, 40, 40)
-                .addComponent(btnAsignacionesCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnAsignacionesCampos)
                 .addContainerGap())
         );
 
         btnCrearETL.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         btnCrearETL.setText("Crear ETL");
+        btnCrearETL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearETLActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCrearETL, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(399, 399, 399))
             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -352,20 +363,24 @@ public class FormularioETL extends javax.swing.JFrame {
                         .addComponent(pnlDataConversion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(pnlExtracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCrearETL, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(395, 395, 395))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(13, 13, 13)
-                .addComponent(pnlExtracion, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlExtracion, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlDataConversion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCrearETL, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -376,6 +391,7 @@ public class FormularioETL extends javax.swing.JFrame {
          txaConsultaSQL.setEnabled(false);  // Deshabilitar txaConsultaSQL
          txaConsultaSQL.setText("");
          cmbTablas.removeAllItems();
+         btnCrearETL.setEnabled(false);
          FormularioETL.camposSelectOrigen.clear();
          btnTransformar.setEnabled(false);
          try{
@@ -426,6 +442,8 @@ public class FormularioETL extends javax.swing.JFrame {
                tablaSeleccionada= cmbTablas.getSelectedItem().toString();
                btnEscogerCampos.setEnabled(true);
                btnTransformar.setEnabled(true);
+                MenuPrincipal.fromTable = true;
+
             }
          }else if(jrbConsulta.isSelected()==true){
             try {	
@@ -441,6 +459,7 @@ public class FormularioETL extends javax.swing.JFrame {
                         btnEscogerCampos.setEnabled(true);
                           btnTransformar.setEnabled(true);
                           Consulta = txaConsultaSQL.getText();
+                            MenuPrincipal.fromTable = false;
                     } else {
                         JOptionPane.showMessageDialog(this, "La consulta no produjo resultados válidos. Intente nuevamente.");
 
@@ -498,6 +517,8 @@ public class FormularioETL extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Seleccione una tabla de destino");
         }else{
             try{
+                
+                tablaDEstinoSeleccionada = cmbTablas.getSelectedItem().toString();
                 camposSelectDestino = camposPorTablaDestino.obtenerCampos(ConexionDestino.conDestino, cmbTablasDestino.getSelectedItem().toString());
                 AsignacionesMapeo frmMapeo = new AsignacionesMapeo();      
                 frmMapeo.setLocationRelativeTo(this);  // Centra la ventana con respecto a la ventana principal
@@ -515,13 +536,47 @@ public class FormularioETL extends javax.swing.JFrame {
     private void cmbTablasDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTablasDestinoActionPerformed
     }//GEN-LAST:event_cmbTablasDestinoActionPerformed
 
+    private void btnCrearETLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearETLActionPerformed
+          IngresarDatosDestino CrearInsercion = new IngresarDatosDestino();
+          String tiposT[] = {"Dimension","Hechos"};
+          int inputCb;
+          JComboBox tipoTabla = new JComboBox(tiposT);
+          String CosultaInsert;
+        try {
+            
+            
+           // JOptionPane.showMessageDialog(this, "Sucedio un error inesperado al momento de obtener los campos de la tabla de destino: ");
+            if(jrbTabla.isSelected()){
+                CosultaInsert = CrearInsercion.prepararInsercion(CredecialesConexion.conOrigen,
+                        camposSelectDestinoOrdenFinal, camposSelectOrigenOrdenFinal, tablaSeleccionada, tablaDEstinoSeleccionada, true);
+                
+                 MenuPrincipal.InserccionesDimensionesETL.add(CosultaInsert);
+            }else {
+                
+            }
+             //inputCb = JOptionPane.showConfirmDialog(this,tipoTabla, "Seleccione un tipo",JOptionPane.DEFAULT_OPTION);
+            
+             
+            
+             
+             /*if(inputCb == JOptionPane.OK_OPTION){
+                 String 
+             }*/
+
+        }catch(Exception e) {
+            JOptionPane.showMessageDialog(this, "Sucedio un error inesperado al momento de crear el ETL: "+ e.getMessage());
+
+
+        }
+    }//GEN-LAST:event_btnCrearETLActionPerformed
+
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgrTipoExtraccion;
     public static javax.swing.JButton btnAgregarConexionDestino;
     public static javax.swing.JButton btnAsignacionesCampos;
-    private javax.swing.JButton btnCrearETL;
+    public static javax.swing.JButton btnCrearETL;
     private javax.swing.JButton btnEscogerCampos;
     private javax.swing.JButton btnExtraerBD;
     private javax.swing.JButton btnTransformar;

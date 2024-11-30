@@ -33,11 +33,6 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="1" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="btnCrearETL" min="-2" pref="322" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="399" max="-2" attributes="0"/>
-          </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
@@ -47,7 +42,12 @@
                   </Group>
                   <Component id="jPanel1" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="58" max="32767" attributes="0"/>
+              <EmptySpace pref="37" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="btnCrearETL" min="-2" pref="322" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="395" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -55,14 +55,14 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-              <Component id="pnlExtracion" min="-2" pref="279" max="-2" attributes="0"/>
+              <Component id="pnlExtracion" min="-2" pref="257" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="pnlDataConversion" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="btnCrearETL" min="-2" pref="45" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="19" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -276,7 +276,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                   <Component id="btnTransformar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="37" max="32767" attributes="0"/>
+                  <EmptySpace pref="33" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -323,14 +323,14 @@
                       <Component id="txtBaseDestino" max="32767" attributes="0"/>
                       <Component id="cmbTablasDestino" pref="433" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="48" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                   <Component id="btnAgregarConexionDestino" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="btnAsignacionesCampos" min="-2" pref="555" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="239" max="-2" attributes="0"/>
+                  <EmptySpace pref="381" max="32767" attributes="0"/>
+                  <Component id="btnAsignacionesCampos" min="-2" pref="475" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="216" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -342,14 +342,14 @@
                       <Component id="txtBaseDestino" alignment="3" max="32767" attributes="0"/>
                       <Component id="btnAgregarConexionDestino" alignment="3" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="38" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="cmbTablasDestino" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="btnAsignacionesCampos" min="-2" pref="44" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="btnAsignacionesCampos" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -441,6 +441,12 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Crear ETL"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCrearETLActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

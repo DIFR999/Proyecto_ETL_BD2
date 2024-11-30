@@ -135,6 +135,11 @@ public class AsignacionesMapeo extends javax.swing.JFrame {
 
         btnGuardarMapeo.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         btnGuardarMapeo.setText("Confirmar Mapeo");
+        btnGuardarMapeo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarMapeoActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         jLabel3.setText("Columna de Entrada(Origen)");
@@ -302,6 +307,25 @@ public class AsignacionesMapeo extends javax.swing.JFrame {
     private void cmbCamposOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCamposOrigenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbCamposOrigenActionPerformed
+
+    private void btnGuardarMapeoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarMapeoActionPerformed
+        if((FormularioETL.camposSelectDestinoOrden.size() < FormularioETL.camposSelectDestino.size())){
+            JOptionPane.showMessageDialog(this, "Antes, debes mapea todos los campos del destino");    
+
+        }else{ // Aqui cuando todos los campos esta mapeando, creamos COnfirmamos el mapeo
+            
+             for (int i = 0; i < FormularioETL.camposSelectOrigenOrden.size(); i++) {
+                    FormularioETL.camposSelectOrigenOrdenFinal.add(FormularioETL.camposSelectOrigenOrden.get(i).getColumnName());
+             }
+             for (int i = 0; i < FormularioETL.camposSelectOrigenOrden.size(); i++) {
+                FormularioETL.camposSelectDestinoOrdenFinal.add(FormularioETL.camposSelectDestinoOrden.get(i).getColumnName());
+             }
+            JOptionPane.showMessageDialog(this, "Guardado mapeo");    
+            FormularioETL.btnCrearETL.setEnabled(true);
+            dispose();
+        }
+
+    }//GEN-LAST:event_btnGuardarMapeoActionPerformed
 
     /**
      * @param args the command line arguments
