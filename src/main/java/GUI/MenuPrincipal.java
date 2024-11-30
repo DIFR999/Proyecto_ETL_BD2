@@ -24,7 +24,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public static ConexionesDisponible conexionesDisponibles = new ConexionesDisponible();
     public static ArrayList<ConexionDTO> conexiones = new ArrayList<ConexionDTO>();
     public static ConexionDTO ConexionOrigen  = new ConexionDTO();
-    public static ArrayList<TABLADTO> TablasSelecionadasOrigen = new ArrayList<TABLADTO>();
    
     //CONEXINES PARA EL DESTINO
     public static ConexionDTO conexionDestino = new ConexionDTO();
@@ -40,9 +39,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
    
     public static ArrayList<ArrayList<String>> CamposOrigenSelecTFinal = new ArrayList<>();
     public static frmConexionOrigen frmCONOR = new frmConexionOrigen();
-    
-
-    
     public static MenuPrincipal menu = new MenuPrincipal();
     
 
