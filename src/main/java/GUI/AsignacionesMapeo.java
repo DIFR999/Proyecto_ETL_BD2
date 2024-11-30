@@ -280,10 +280,7 @@ public class AsignacionesMapeo extends javax.swing.JFrame {
                                     FormularioETL.camposSelectOrigenOrden.add(camposO);
                                     FormularioETL.camposSelectDestinoOrden.add(camposD);
                                         // Depuración para ArrayList camposDestino
-            System.out.println("Campos de destino: " + (FormularioETL.camposSelectDestinoOrden != null ? FormularioETL.camposSelectDestinoOrden.toString() : "Lista vacía o nula"));
-    
-        // Depuración para ArrayList camposOrigen
-        System.out.println("Campos de origen: " + (FormularioETL.camposSelectDestinoOrden != null ? FormularioETL.camposSelectDestinoOrden.toString() : "Lista vacía o nula"));
+           
                                 }else{
                                     JOptionPane.showMessageDialog(this, "Ya mapeo esos campo");
 
