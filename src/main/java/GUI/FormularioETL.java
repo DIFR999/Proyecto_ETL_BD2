@@ -518,7 +518,7 @@ public class FormularioETL extends javax.swing.JFrame {
         }else{
             try{
                 
-                tablaDEstinoSeleccionada = cmbTablas.getSelectedItem().toString();
+                tablaDEstinoSeleccionada = cmbTablasDestino.getSelectedItem().toString();
                 camposSelectDestino = camposPorTablaDestino.obtenerCampos(ConexionDestino.conDestino, cmbTablasDestino.getSelectedItem().toString());
                 AsignacionesMapeo frmMapeo = new AsignacionesMapeo();      
                 frmMapeo.setLocationRelativeTo(this);  // Centra la ventana con respecto a la ventana principal
@@ -547,8 +547,9 @@ public class FormularioETL extends javax.swing.JFrame {
             
            // JOptionPane.showMessageDialog(this, "Sucedio un error inesperado al momento de obtener los campos de la tabla de destino: ");
             if(jrbTabla.isSelected()){
-                CosultaInsert = CrearInsercion.prepararInsercion(CredecialesConexion.conOrigen,
-                        camposSelectDestinoOrdenFinal, camposSelectOrigenOrdenFinal, tablaSeleccionada, tablaDEstinoSeleccionada, true);
+       
+                CosultaInsert = CrearInsercion.prepararInsercion(CredecialesConexion.conOrigen,camposSelectDestinoOrdenFinal, 
+                        camposSelectOrigenOrdenFinal, tablaSeleccionada, tablaDEstinoSeleccionada, true);
                 
                  MenuPrincipal.InserccionesDimensionesETL.add(CosultaInsert);
             }else {

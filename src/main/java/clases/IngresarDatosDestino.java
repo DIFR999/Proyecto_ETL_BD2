@@ -13,7 +13,23 @@ public class IngresarDatosDestino {
      // Método para preparar una única consulta de inserción
     public String prepararInsercion(Connection connOrg, ArrayList<String> camposDestino,
             ArrayList<String> camposOrigen, String tableOrigen, String tableDestino, boolean fromTable) {
-
+         // Depuración para Connection (Asegurarse de que no sea nulo)
+    System.out.println("Conexión Origen: " + (connOrg != null ? "Conexión válida" : "Conexión nula"));
+    
+    // Depuración para ArrayList camposDestino
+    System.out.println("Campos de destino: " + (camposDestino != null ? camposDestino.toString() : "Lista vacía o nula"));
+    
+    // Depuración para ArrayList camposOrigen
+    System.out.println("Campos de origen: " + (camposOrigen != null ? camposOrigen.toString() : "Lista vacía o nula"));
+    
+    // Depuración para la tabla de origen
+    System.out.println("Tabla de origen: " + (tableOrigen != null ? tableOrigen : "Tabla de origen nula"));
+    
+    // Depuración para la tabla de destino
+    System.out.println("Tabla de destino: " + (tableDestino != null ? tableDestino : "Tabla de destino nula"));
+    
+    // Depuración para el valor booleano fromTable
+    System.out.println("¿Origen es tabla? : " + (fromTable ? "Sí" : "No"));
         String consultaPreparada = null;
         ResultSet rsOrg = null;
 
@@ -51,8 +67,10 @@ public class IngresarDatosDestino {
                                 "WHERE NOT EXISTS (SELECT 1 FROM " + tableDestino + " WHERE " + condicionesExists + ")";
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Error en metodo  "+ e.getMessage());
         }
+        
+        
 
         // Devolver la consulta preparada
         return consultaPreparada;

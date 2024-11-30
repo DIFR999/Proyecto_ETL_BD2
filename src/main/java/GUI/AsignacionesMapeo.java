@@ -277,9 +277,13 @@ public class AsignacionesMapeo extends javax.swing.JFrame {
                                     jslCamposOrigenOrden.setModel(listModelOrigen);
                                     jlsCamposDestinoOrder.setModel(listModelDestino);
                                     
-                                    FormularioETL.camposSelectDestinoOrden.add(camposO);
+                                    FormularioETL.camposSelectOrigenOrden.add(camposO);
                                     FormularioETL.camposSelectDestinoOrden.add(camposD);
-                                     
+                                        // Depuración para ArrayList camposDestino
+            System.out.println("Campos de destino: " + (FormularioETL.camposSelectDestinoOrden != null ? FormularioETL.camposSelectDestinoOrden.toString() : "Lista vacía o nula"));
+    
+        // Depuración para ArrayList camposOrigen
+        System.out.println("Campos de origen: " + (FormularioETL.camposSelectDestinoOrden != null ? FormularioETL.camposSelectDestinoOrden.toString() : "Lista vacía o nula"));
                                 }else{
                                     JOptionPane.showMessageDialog(this, "Ya mapeo esos campo");
 
@@ -309,7 +313,7 @@ public class AsignacionesMapeo extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbCamposOrigenActionPerformed
 
     private void btnGuardarMapeoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarMapeoActionPerformed
-        if((FormularioETL.camposSelectDestinoOrdenFinal.size() < FormularioETL.camposSelectDestino.size())){
+        if((FormularioETL.camposSelectDestinoOrden.size() < FormularioETL.camposSelectDestino.size())){
             JOptionPane.showMessageDialog(this, "Antes, debes mapea todos los campos del destino");    
 
         }else{ // Aqui cuando todos los campos esta mapeando, creamos COnfirmamos el mapeo
@@ -317,9 +321,16 @@ public class AsignacionesMapeo extends javax.swing.JFrame {
              for (int i = 0; i < FormularioETL.camposSelectOrigenOrden.size(); i++) {
                     FormularioETL.camposSelectOrigenOrdenFinal.add(FormularioETL.camposSelectOrigenOrden.get(i).getColumnName());
              }
-             for (int i = 0; i < FormularioETL.camposSelectOrigenOrden.size(); i++) {
+             for (int i = 0; i < FormularioETL.camposSelectDestinoOrden.size(); i++) {
                 FormularioETL.camposSelectDestinoOrdenFinal.add(FormularioETL.camposSelectDestinoOrden.get(i).getColumnName());
              }
+             
+                      
+                  // Depuración para ArrayList camposDestino
+            System.out.println("Campos de destino: " + (FormularioETL.camposSelectDestinoOrdenFinal != null ? FormularioETL.camposSelectDestinoOrdenFinal.toString() : "Lista vacía o nula"));
+    
+        // Depuración para ArrayList camposOrigen
+        System.out.println("Campos de origen: " + (FormularioETL.camposSelectOrigenOrdenFinal != null ? FormularioETL.camposSelectOrigenOrdenFinal.toString() : "Lista vacía o nula"));
             JOptionPane.showMessageDialog(this, "Guardado mapeo");    
             FormularioETL.btnCrearETL.setEnabled(true);
             dispose();
@@ -327,40 +338,7 @@ public class AsignacionesMapeo extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnGuardarMapeoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AsignacionesMapeo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AsignacionesMapeo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AsignacionesMapeo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AsignacionesMapeo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AsignacionesMapeo().setVisible(true);
-            }
-        });
-    }
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAsignarMapeo;

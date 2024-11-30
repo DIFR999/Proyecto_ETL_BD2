@@ -13,7 +13,6 @@ GUI\AsignacionesMapeo$1.class
 GUI\DataConversion.class
 GUI\frmConexionOrigen$5.class
 GUI\MenuPrincipal.class
-GUI\DataConversion$9.class
 GUI\MenuPrincipal$1.class
 GUI\AsignacionesMapeo$3.class
 GUI\DataConversion$4.class
@@ -39,7 +38,6 @@ GUI\ConexionDestino.class
 GUI\MenuPrincipal$6.class
 GUI\CredecialesConexion$1.class
 GUI\FormularioETL$4.class
-GUI\AsignacionesMapeo$6.class
 clases\DTO\CampoDTO.class
 clases\IngresarDatosDestino.class
 GUI\ConexionDestino$1.class
