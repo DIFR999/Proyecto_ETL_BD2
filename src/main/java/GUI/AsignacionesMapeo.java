@@ -309,7 +309,7 @@ public class AsignacionesMapeo extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbCamposOrigenActionPerformed
 
     private void btnGuardarMapeoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarMapeoActionPerformed
-        if((FormularioETL.camposSelectDestinoOrden.size() < FormularioETL.camposSelectDestino.size())){
+        if((FormularioETL.camposSelectDestinoOrdenFinal.size() < FormularioETL.camposSelectDestino.size())){
             JOptionPane.showMessageDialog(this, "Antes, debes mapea todos los campos del destino");    
 
         }else{ // Aqui cuando todos los campos esta mapeando, creamos COnfirmamos el mapeo
