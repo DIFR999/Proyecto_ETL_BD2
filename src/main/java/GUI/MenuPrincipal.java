@@ -41,8 +41,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     //GUARDAR TODAS INSERCCIONES DE UN DATAMART(Tabla de hechos)
     public static ArrayList<String> InserccionesTHechosETL = new ArrayList<String>() ;
     public static ArrayList<String> NombreThecosInserccion = new ArrayList<String>();
-    
+    public static ArrayList<ArrayList<String>> CamposOrigenSelecTFinal = new ArrayList<>();
     public static frmConexionOrigen frmCONOR = new frmConexionOrigen();
+    
 
     
     public static MenuPrincipal menu = new MenuPrincipal();
@@ -271,7 +272,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
             }else{
                 for(int j = 0; j<InserccionesDimensionesETL.size();j++){
-                    EjecutarConsulta.ejecutarInsercion(ConexionDestino.conDestino, InserccionesDimensionesETL.get(j),FormularioETL.tablaSeleccionada,fromTable);
+                    EjecutarConsulta.ejecutarInsercion(ConexionDestino.conDestino, CredecialesConexion.conOrigen, InserccionesDimensionesETL.get(j),
+                            FormularioETL.tablaSeleccionada,fromTable, CamposOrigenSelecTFinal.get(j));
                 }
             } 
         }catch(Exception e){

@@ -64,7 +64,7 @@ public class ConexionDestino extends javax.swing.JFrame {
         txtPasswordCredencialesDestino = new javax.swing.JTextField();
         btnVerificarCredencialesDestino = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         pnlConexionOrigen.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CONEXION DESTINO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 0, 18))); // NOI18N
 

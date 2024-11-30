@@ -8,119 +8,155 @@ package clases;
 import java.util.*;
 public class IngresarDatosDestino {
  
+public String prepararInsercion(Connection connOrg, ArrayList<String> camposDestino,
+                                ArrayList<String> camposOrigen, String tableOrigen, 
+                                String tableDestino, boolean fromTable) {
 
-
-     // Método para preparar una única consulta de inserción
-    public String prepararInsercion(Connection connOrg, ArrayList<String> camposDestino,
-            ArrayList<String> camposOrigen, String tableOrigen, String tableDestino, boolean fromTable) {
-         // Depuración para Connection (Asegurarse de que no sea nulo)
-    System.out.println("Conexión Origen: " + (connOrg != null ? "Conexión válida" : "Conexión nula"));
-    
-    // Depuración para ArrayList camposDestino
-    System.out.println("Campos de destino: " + (camposDestino != null ? camposDestino.toString() : "Lista vacía o nula"));
-    
-    // Depuración para ArrayList camposOrigen
-    System.out.println("Campos de origen: " + (camposOrigen != null ? camposOrigen.toString() : "Lista vacía o nula"));
-    
-    // Depuración para la tabla de origen
-    System.out.println("Tabla de origen: " + (tableOrigen != null ? tableOrigen : "Tabla de origen nula"));
-    
-    // Depuración para la tabla de destino
-    System.out.println("Tabla de destino: " + (tableDestino != null ? tableDestino : "Tabla de destino nula"));
-    
-    // Depuración para el valor booleano fromTable
-    System.out.println("¿Origen es tabla? : " + (fromTable ? "Sí" : "No"));
-        String consultaPreparada = null;
-        ResultSet rsOrg = null;
-
-        try {
-            // Construir la parte de la consulta SQL para seleccionar los campos de origen
-            StringBuilder camposConsulta = new StringBuilder();
-            for (String campo : camposOrigen) {
-                camposConsulta.append(campo).append(", ");
-            }
-            camposConsulta.delete(camposConsulta.length() - 2, camposConsulta.length()); // Eliminar la última coma y el espacio
-
-            // Generar la consulta para obtener datos del origen (tabla o consulta)
-            String sqlOrigen;
-            if (fromTable) {
-                // Si el origen es una tabla, usamos un SELECT directo
-                sqlOrigen = "SELECT " + camposConsulta.toString() + " FROM " + tableOrigen;
-            } else {
-                // Si el origen es una consulta, utilizamos directamente la consulta SQL proporcionada
-                sqlOrigen = tableOrigen; // Aquí se asume que `tableOrigen` contiene la consulta válida
-            }
-
-            // Ejecutar la consulta de origen para verificar si es válida
-            PreparedStatement stmtOrg = connOrg.prepareStatement(sqlOrigen);
-            rsOrg = stmtOrg.executeQuery();
-
-            // Construir la consulta de inserción dinámica con la cláusula EXISTS
-            StringBuilder condicionesExists = new StringBuilder();
-            for (String campo : camposDestino) {
-                condicionesExists.append(campo).append(" = ? AND ");
-            }
-            condicionesExists.delete(condicionesExists.length() - 5, condicionesExists.length()); // Eliminar " AND"
-
-            consultaPreparada = "INSERT INTO " + tableDestino + " (" + String.join(", ", camposDestino) + ") " +
-                                "SELECT " + String.join(", ", camposDestino) + " " +
-                                "WHERE NOT EXISTS (SELECT 1 FROM " + tableDestino + " WHERE " + condicionesExists + ")";
-
-        } catch (SQLException e) {
-            System.out.println("Error en metodo  "+ e.getMessage());
-        }
-        
-        
-
-        // Devolver la consulta preparada
-        return consultaPreparada;
-    }
-
-   public int ejecutarInsercion(Connection connDes, String consultaPreparada,
-                             String tableOrigen, boolean fromTable) {
-
-    int cantInsert = 0;
+    String consultaPreparada = null;
+    ResultSet rsOrg = null;
 
     try {
-        // Preparar la consulta de origen
-        String sqlOrigen;
-        if (fromTable) {
-            // Si es una tabla, armamos un SELECT
-            sqlOrigen = "SELECT * FROM " + tableOrigen; // Se asume que seleccionas todas las columnas de la tabla
-        } else {
-            // Si es una consulta, usamos el valor de `tableOrigen` como la consulta completa
-            sqlOrigen = tableOrigen;
+        // Validar que las listas de campos no estén vacías y que coincidan en tamaño
+        if (camposDestino.isEmpty() || camposOrigen.isEmpty()) {
+            throw new IllegalArgumentException("Las listas de campos de origen y destino no pueden estar vacías.");
+        }
+        if (camposDestino.size() != camposOrigen.size()) {
+            throw new IllegalArgumentException("El número de campos de origen y destino debe coincidir.");
         }
 
-        // Ejecutar la consulta de origen para obtener los datos
-        PreparedStatement stmtOrg = connDes.prepareStatement(sqlOrigen);
-        ResultSet rsOrg = stmtOrg.executeQuery();
+        // Construir la lista de campos de la consulta SELECT
+        StringBuilder camposConsulta = new StringBuilder();
+        for (String campo : camposOrigen) {
+            camposConsulta.append(campo).append(", ");
+        }
+        camposConsulta.delete(camposConsulta.length() - 2, camposConsulta.length()); // Quitar la última coma y espacio
 
-        // Preparar la consulta de inserción
-        PreparedStatement stmtInsert = connDes.prepareStatement(consultaPreparada);
+        // Generar la consulta de origen
+        String sqlOrigen;
+        if (fromTable) {
+            // Si el origen es una tabla, usar SELECT directo
+            sqlOrigen = "SELECT " + camposConsulta.toString() + " FROM " + tableOrigen;
+        } else {
+            // Si el origen es una consulta directa
+            sqlOrigen = tableOrigen; // Aquí `tableOrigen` contiene la consulta personalizada
+        }
+
+        // Validar la consulta de origen ejecutándola
+        PreparedStatement stmtOrg = connOrg.prepareStatement(sqlOrigen);
+        rsOrg = stmtOrg.executeQuery();
+
+        // Verificar si la consulta de origen devuelve algún resultado
+        if (!rsOrg.isBeforeFirst()) {
+            throw new SQLException("No se encontraron datos en la consulta de origen.");
+        }
+
+        // Construir las condiciones para la cláusula EXISTS usando ?
+        StringBuilder condicionesExists = new StringBuilder();
+        for (int i = 0; i < camposDestino.size(); i++) {
+            condicionesExists.append(tableDestino).append(".").append(camposDestino.get(i))
+                             .append(" = ? AND ");
+        }
+        condicionesExists.delete(condicionesExists.length() - 5, condicionesExists.length()); // Quitar " AND"
+
+        // Construir la consulta final
+       consultaPreparada = "INSERT INTO " + tableDestino + " (" + String.join(", ", camposDestino) + ") " +
+                    "SELECT " + String.join(", ", camposOrigen) + " " +
+                    "FROM (" + sqlOrigen + ") subquery " +  // Quitamos AS
+                    "WHERE NOT EXISTS (" +
+                    "SELECT 1 FROM " + tableDestino +
+                    " WHERE " + condicionesExists + ")";
+
+
+        
+        
+
+    } catch (SQLException e) {
+        System.out.println("Error al preparar la consulta de inserción: " + e.getMessage());
+        e.printStackTrace(); // Agregar traza completa para depurar errores SQL
+    } catch (IllegalArgumentException e) {
+        System.out.println("Error: " + e.getMessage());
+    }
+
+    // Imprimir la consulta generada para depuración
+    System.out.println("Consulta preparada: " + consultaPreparada);
+    return consultaPreparada;
+}
+
+
+public int ejecutarInsercion(Connection connDes, Connection connOrg, String consultaPreparada, 
+                             String tableOrigen, boolean fromTable, ArrayList<String> camposOrigen) {
+    int cantInsert = 0;
+
+    try (PreparedStatement stmtOrg = connOrg.prepareStatement(
+            fromTable ? "SELECT " + String.join(", ", camposOrigen) + " FROM " + tableOrigen : tableOrigen);
+         ResultSet rsOrg = stmtOrg.executeQuery();
+         PreparedStatement stmtInsert = connDes.prepareStatement(consultaPreparada)) {
+
+        // Verificar cuántas columnas tiene el ResultSet
+        int columnCount = rsOrg.getMetaData().getColumnCount();
+        System.out.println("Número de columnas en el ResultSet: " + columnCount);
+
+        // Si no hay datos en el ResultSet, regresar 0
+        if (!rsOrg.isBeforeFirst()) {
+            System.out.println("No se encontraron datos en la consulta de origen.");
+            return 0;
+        }
 
         // Iterar sobre los resultados de la consulta de origen
         while (rsOrg.next()) {
-            // Asignar los valores de la fila del ResultSet a la consulta de inserción
-            for (int i = 1; i <= rsOrg.getMetaData().getColumnCount(); i++) {
-                stmtInsert.setObject(i, rsOrg.getObject(i));
+            System.out.println("Procesando fila con id: " + rsOrg.getObject(1)); // Asumiendo que la primera columna es el ID
+
+            // Iterar por todas las columnas
+            for (int i = 1; i <= columnCount; i++) {
+                try {
+                    // Imprimir información sobre la columna antes de procesarla
+                    System.out.println("Procesando columna " + i + " (Nombre: " + rsOrg.getMetaData().getColumnName(i) + ")");
+
+                    // Depuración: Verificar el valor de la columna
+                    System.out.println("Valor de la columna " + rsOrg.getMetaData().getColumnName(i) + ": " + rsOrg.getObject(i));
+
+                    // Verificar si el tipo de columna es DATE
+                    if (rsOrg.getMetaData().getColumnType(i) == java.sql.Types.DATE) {
+                        System.out.println("Procesando fecha en columna: " + rsOrg.getMetaData().getColumnName(i));
+                        stmtInsert.setDate(i, rsOrg.getDate(i));
+                    } else {
+                        stmtInsert.setObject(i, rsOrg.getObject(i));
+                    }
+                } catch (SQLException e) {
+                    // Mostrar el error con la columna específica que causó el problema
+                    System.err.println("Error en la columna " + i + " (" + rsOrg.getMetaData().getColumnName(i) + "): " + e.getMessage());
+                    e.printStackTrace(); // Mostrar detalles del error
+                }
             }
 
-            // Ejecutar la inserción
+            // Establecer los parámetros para la cláusula WHERE NOT EXISTS
+            for (int i = 1; i <= columnCount; i++) {
+                stmtInsert.setObject(i, rsOrg.getObject(i));  // Asegurarse de establecer los parámetros de la cláusula WHERE
+            }
+
+            // Ejecutar la inserción y contar filas afectadas
             int filasAfectadas = stmtInsert.executeUpdate();
+            System.out.println("Filas afectadas por la inserción: " + filasAfectadas);
+
             if (filasAfectadas > 0) {
                 cantInsert++;
             }
         }
-
-        rsOrg.close();
-        stmtOrg.close();
-
     } catch (SQLException e) {
-        e.printStackTrace();
+        System.err.println("Error ejecutando inserción: " + e.getMessage());
+        e.printStackTrace(); // Mostrar detalles completos del error
     }
 
+    // Devolver la cantidad de inserciones realizadas
+    System.out.println("Cantidad de inserciones realizadas: " + cantInsert);
     return cantInsert;
 }
+
+
+
+
+
+
+
 
 }
