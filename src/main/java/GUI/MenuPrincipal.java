@@ -271,10 +271,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "DEBER TENER CREANDO A QUE SEA UN TABLA DE HECHOS Y UNA TABLA DE DIMENSIONES");
 
             }else{
-                for(int j = 0; j<InserccionesDimensionesETL.size();j++){
+                
+                if(fromTable){
+                    for(int j = 0; j<InserccionesDimensionesETL.size();j++){
                     EjecutarConsulta.ejecutarInsercion(ConexionDestino.conDestino, CredecialesConexion.conOrigen, InserccionesDimensionesETL.get(j),
-                            FormularioETL.tablaSeleccionada,fromTable, CamposOrigenSelecTFinal.get(j));
+                            FormularioETL.tablaSeleccionada,true, CamposOrigenSelecTFinal.get(j));
                 }
+                }else{
+                    for(int j = 0; j<InserccionesDimensionesETL.size();j++){
+                    EjecutarConsulta.ejecutarInsercion(ConexionDestino.conDestino, CredecialesConexion.conOrigen, InserccionesDimensionesETL.get(j),
+                            FormularioETL.Consulta,false, CamposOrigenSelecTFinal.get(j));
+                }
+                }
+                
             } 
         }catch(Exception e){
             JOptionPane.showMessageDialog(this, "Succedio un error inesperado al momento de insertar datos "+ e.getMessage());

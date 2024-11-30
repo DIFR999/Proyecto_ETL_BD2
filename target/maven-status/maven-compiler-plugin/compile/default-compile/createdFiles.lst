@@ -29,6 +29,7 @@ GUI\DataConversion$3.class
 GUI\FormularioETL$7.class
 GUI\AsignacionesMapeo$2.class
 GUI\ConexionDestino$4.class
+GUI\FrmEscogerCampos$3.class
 GUI\MenuPrincipal$2.class
 clases\ConexionGBD.class
 GUI\frmConexionOrigen$4.class

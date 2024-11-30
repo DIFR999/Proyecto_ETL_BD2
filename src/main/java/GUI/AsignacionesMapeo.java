@@ -299,7 +299,7 @@ public class AsignacionesMapeo extends javax.swing.JFrame {
                    }         
                     
               }else{
-                  if(camposO.getDataType()== camposD.getDataType() && (camposO.getMaxLeghtConvert()<= camposD.getMaxLength())){
+                  if(camposO.getDataType().equals(camposD.getDataType()) && (camposO.getMaxLeghtConvert()<= camposD.getMaxLength())){
                       elementoOrigen = camposO.getAlias()+ " " + 
                              camposO.getDataType() + " " +
                              camposO.getMaxLeghtConvert();
@@ -351,13 +351,20 @@ public class AsignacionesMapeo extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbCamposOrigenActionPerformed
 
     private void btnGuardarMapeoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarMapeoActionPerformed
+        
         if((FormularioETL.camposSelectDestinoOrden.size() < FormularioETL.camposSelectDestino.size())){
             JOptionPane.showMessageDialog(this, "Antes, debes mapea todos los campos del destino");    
 
         }else{ // Aqui cuando todos los campos esta mapeando, creamos COnfirmamos el mapeo
             
              for (int i = 0; i < FormularioETL.camposSelectOrigenOrden.size(); i++) {
-                    FormularioETL.camposSelectOrigenOrdenFinal.add(FormularioETL.camposSelectOrigenOrden.get(i).getColumnName());
+                 if(FormularioETL.camposSelectOrigenOrden.get(i).getColumnName().equals(FormularioETL.camposSelectOrigenOrden.get(i).getColumnNameConvert())){
+                      FormularioETL.camposSelectOrigenOrdenFinal.add(FormularioETL.camposSelectOrigenOrden.get(i).getColumnName());
+                 }else{
+                    FormularioETL.camposSelectOrigenOrdenFinal.add(FormularioETL.camposSelectOrigenOrden.get(i).getColumnNameConvert());
+
+                 }
+                   
              }
              for (int i = 0; i < FormularioETL.camposSelectDestinoOrden.size(); i++) {
                 FormularioETL.camposSelectDestinoOrdenFinal.add(FormularioETL.camposSelectDestinoOrden.get(i).getColumnName());

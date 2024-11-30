@@ -214,7 +214,7 @@ public class frmConexionOrigen extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUserAdminActionPerformed
 
     private void btnVerificarUserAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarUserAdminActionPerformed
-       
+        MenuPrincipal.conexiones.clear();
         MenuPrincipal.UserAdministrador = txtUserAdmin.getText();
         MenuPrincipal.PasswordAdministrador = txtPasswordAdmin.getText();
        if(MenuPrincipal.conexionesDisponibles.verificarCredenciales(MenuPrincipal.UserAdministrador,  MenuPrincipal.PasswordAdministrador)){

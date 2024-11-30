@@ -460,6 +460,7 @@ public class FormularioETL extends javax.swing.JFrame {
          }else if(jrbConsulta.isSelected()==true){
             try {	
                 String consultaSQL =txaConsultaSQL.getText();
+                Consulta = consultaSQL;
                 MenuPrincipal.campos = MenuPrincipal.camposPorTabla.obtenerCamposConsulta(CredecialesConexion.conOrigen, consultaSQL);
                 if(txaConsultaSQL.getText()==null ||txaConsultaSQL.getText().isEmpty() ){
                     JOptionPane.showMessageDialog(null, "El campo de consulta SQL está vacío. Por favor, ingresa una consulta.", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -561,13 +562,24 @@ public class FormularioETL extends javax.swing.JFrame {
             if(jrbTabla.isSelected()){
        
                 CosultaInsert = CrearInsercion.prepararInsercion(CredecialesConexion.conOrigen,camposSelectDestinoOrdenFinal, 
-                        camposSelectOrigenOrdenFinal, tablaSeleccionada, tablaDEstinoSeleccionada, true);
-                
-                
-                
+                camposSelectOrigenOrdenFinal, tablaSeleccionada, tablaDEstinoSeleccionada, true);
+                JOptionPane.showMessageDialog(this, "Se creo el ETL correctamente");
                  MenuPrincipal.InserccionesDimensionesETL.add(CosultaInsert);
+                dispose();
+
+                
+                
+               
             }else {
                 
+                CosultaInsert = CrearInsercion.prepararInsercion(CredecialesConexion.conOrigen,camposSelectDestinoOrdenFinal, 
+                camposSelectOrigenOrdenFinal, Consulta, tablaDEstinoSeleccionada, false);
+                JOptionPane.showMessageDialog(this, "Se creo el ETL correctamente");
+                MenuPrincipal.InserccionesDimensionesETL.add(CosultaInsert);
+                dispose();
+                
+                
+                 
             }
              //inputCb = JOptionPane.showConfirmDialog(this,tipoTabla, "Seleccione un tipo",JOptionPane.DEFAULT_OPTION);
             
