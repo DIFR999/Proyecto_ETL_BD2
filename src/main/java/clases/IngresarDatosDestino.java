@@ -137,6 +137,8 @@ public int ejecutarInsercion(Connection connDes, Connection connOrg, String cons
                     } else {
                         stmtInsert.setObject(i, rsOrg.getObject(i)); // Para otros tipos de datos
                     }
+                    
+                    
                 } catch (SQLException e) {
                     // Mostrar el error con la columna específica que causó el problema
                     System.err.println("Error al establecer parámetro para la columna " + i + " (" + rsOrg.getMetaData().getColumnName(i) + "): " + e.getMessage());
@@ -146,7 +148,7 @@ public int ejecutarInsercion(Connection connDes, Connection connOrg, String cons
             // Ejecutar la inserción y contar filas afectadas
             int filasAfectadas = stmtInsert.executeUpdate();
             if (filasAfectadas > 0) {
-                cantInsert++;
+                cantInsert=filasAfectadas;
                 System.out.println("Inserción exitosa para la fila, filas afectadas: " + filasAfectadas);
             } else {
                 System.err.println("No se insertaron filas en esta iteración.");

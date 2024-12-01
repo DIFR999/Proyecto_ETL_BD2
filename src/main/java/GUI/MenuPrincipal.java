@@ -285,7 +285,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                             TablaOrigen,true,camposSelectOrigenETL.get(j));
                         
                      }
-                        JOptionPane.showMessageDialog(this, "Se insertaron"+ String.valueOf(FILASAFECTADAS) + " filas al destino correctmante");
+                        JOptionPane.showMessageDialog(this, "Se insertaron "+ String.valueOf(FILASAFECTADAS) + " filas al destino correctmante");
    
                     
                 }else{
