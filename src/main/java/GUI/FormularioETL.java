@@ -383,7 +383,7 @@ public class FormularioETL extends javax.swing.JFrame {
         );
 
         btnCrearETL.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
-        btnCrearETL.setText("Crear ETL");
+        btnCrearETL.setText("Ejecutar ETL");
         btnCrearETL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCrearETLActionPerformed(evt);
@@ -581,9 +581,9 @@ public class FormularioETL extends javax.swing.JFrame {
            
            // JOptionPane.showMessageDialog(this, "Sucedio un error inesperado al momento de obtener los campos de la tabla de destino: ");
             if(jrbTabla.isSelected()){
-                CosultaInsert = CrearInsercion.prepararInsercion(CredecialesConexion.conOrigen,camposSelectDestinoOrdenFinal, 
+                CosultaInsert = CrearInsercion.prepararInsercion(CredecialesConexion.conOrigen, camposSelectDestinoOrdenFinal, 
                 camposSelectOrigenOrdenFinal, tablaSeleccionada, tablaDEstinoSeleccionada, true);
-                JOptionPane.showMessageDialog(this, "Se creo el ETL correctamente");
+                JOptionPane.showMessageDialog(this, "Se creo correctamente el ETL");
                 fila.add(tipoT);
                 fila.add(NombreETL);
                 fila.add(tablaSeleccionada);
@@ -600,13 +600,14 @@ public class FormularioETL extends javax.swing.JFrame {
                 
                 CosultaInsert = CrearInsercion.prepararInsercion(CredecialesConexion.conOrigen,camposSelectDestinoOrdenFinal, 
                 camposSelectOrigenOrdenFinal, Consulta, tablaDEstinoSeleccionada, false);
-                JOptionPane.showMessageDialog(this, "Se creo el ETL correctamente");
-                fila.add(tipoT);
+     JOptionPane.showMessageDialog(this, "Se creo correctamente el ETL");                fila.add(tipoT);
                 fila.add(NombreETL);
                 fila.add(Consulta);
                 fila.add(CosultaInsert);
                 MenuPrincipal.InserccionesETL.add(fila);
-                MenuPrincipal.camposSelectOrigenETL.add(camposSelectOrigenOrdenFinal);
+                                filaCampos.add(camposSelectOrigenOrdenFinal.toString());
+
+                MenuPrincipal.camposSelectOrigenETL.add(filaCampos);
                 System.out.println("Campos de origen: " + (MenuPrincipal.camposSelectOrigenETL.get(0) != null ? MenuPrincipal.camposSelectOrigenETL.get(0).toString() : "Lista vacía o nula"));
 
 

@@ -225,8 +225,8 @@ public class ConexionDestino extends javax.swing.JFrame {
             try{
                  FormularioETL.cmbTablasDestino.removeAllItems();
                  FormularioETL.tablasDestino.clear();
-            FormularioETL.tablasDestino = FormularioETL.tablasPorConexionDestino.obtenerTablas(MenuPrincipal.conexionDestino.getUsername(), conDestino);
-
+                FormularioETL.tablasDestino = FormularioETL.tablasPorConexionDestino.obtenerTablas(MenuPrincipal.conexionDestino.getUsername(), conDestino);
+                
                 // MOSTRAMOS LA LISTA DE TABLAS QUE EL SCHEMA POSEE
                 
                  DefaultComboBoxModel modelTablasDestino =new DefaultComboBoxModel();
@@ -234,6 +234,7 @@ public class ConexionDestino extends javax.swing.JFrame {
                   int i = 0;
                       modelTablasDestino.addElement("Selecciona una tabla");
                 for (String tabla : FormularioETL.tablasDestino) {
+                        tabla.toUpperCase();
                        modelTablasDestino.addElement(FormularioETL.tablasDestino.get(i).toString());
                         i++;
                 }
