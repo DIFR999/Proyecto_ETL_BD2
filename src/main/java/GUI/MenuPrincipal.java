@@ -44,8 +44,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     
     
     //Lista de para el Jlist
-     DefaultListModel<String> listDimensiones = new DefaultListModel<>();
-     DefaultListModel<String> listHechos = new DefaultListModel<>();
+     public static DefaultListModel<String> listDimensiones = new DefaultListModel<>();
+     public static DefaultListModel<String> listHechos = new DefaultListModel<>();
 
 
    //VARIABLES GLOBALES

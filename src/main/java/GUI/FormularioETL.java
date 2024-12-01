@@ -604,11 +604,23 @@ public class FormularioETL extends javax.swing.JFrame {
                 fila.add(NombreETL);
                 fila.add(CosultaInsert);
                 MenuPrincipal.InserccionesETL.add(fila);
+                LimpiarVariables();
+
                 dispose();
                 
                 
                  
             }
+            
+            if(tipoT.equals("Dimension")){
+                 MenuPrincipal.listDimensiones.addElement(NombreETL);
+                 MenuPrincipal.jlsListaDimensiones.setModel( MenuPrincipal.listDimensiones);
+            }else{
+                 MenuPrincipal.listHechos.addElement(NombreETL);
+                 MenuPrincipal.jListaHechos.setModel(MenuPrincipal.listHechos);
+            }
+           
+           
              //inputCb = JOptionPane.showConfirmDialog(this,tipoTabla, "Seleccione un tipo",JOptionPane.DEFAULT_OPTION);
             
              
