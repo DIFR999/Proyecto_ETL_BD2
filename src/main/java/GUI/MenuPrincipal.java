@@ -266,6 +266,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         String ConsultaInserccion;
         String TablaOrigen;
         String CamposOrigen;
+        int FILASAFECTADAS=0;
         try{
             if(InserccionesETL.isEmpty()){
             JOptionPane.showMessageDialog(this, "DEBER TENER CREANDO A QUE SEA UN TABLA DE HECHOS Y UNA TABLA DE DIMENSIONES");
@@ -280,11 +281,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
                         ConsultaInserccion = InserccionesETL.get(j).get(3).toString();
 
 
-                        EjecutarConsulta.ejecutarInsercion(ConexionDestino.conDestino, CredecialesConexion.conOrigen, ConsultaInserccion,
+                        FILASAFECTADAS= EjecutarConsulta.ejecutarInsercion(ConexionDestino.conDestino, CredecialesConexion.conOrigen, ConsultaInserccion,
                             TablaOrigen,true,camposSelectOrigenETL.get(j));
                         
                      }
-                        JOptionPane.showMessageDialog(this, "Se insertaron los datos al destino correctmante");
+                        JOptionPane.showMessageDialog(this, "Se insertaron"+ String.valueOf(FILASAFECTADAS) + " filas al destino correctmante");
    
                     
                 }else{
@@ -294,10 +295,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
                         ConsultaInserccion = InserccionesETL.get(j).get(2).toString();
                         
 
-                       EjecutarConsulta.ejecutarInsercion(ConexionDestino.conDestino, CredecialesConexion.conOrigen, ConsultaInserccion,
+                       FILASAFECTADAS=EjecutarConsulta.ejecutarInsercion(ConexionDestino.conDestino, CredecialesConexion.conOrigen, ConsultaInserccion,
                               TablaOrigen,false, camposSelectOrigenETL.get(j));
                     }
-                                    JOptionPane.showMessageDialog(this, "Se insertaron los datos al destino correctmante");
+                                    JOptionPane.showMessageDialog(this, "Se insertaron "+ String.valueOf(FILASAFECTADAS) + " filas al destino correctmante");
 
                 }
                 

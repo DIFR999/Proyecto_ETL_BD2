@@ -140,12 +140,7 @@ public class FormularioETL extends javax.swing.JFrame {
         camposSelectDestinoOrdenFinal.clear();
         camposSelectOrigenOrdenFinal.clear();
         MenuPrincipal.campos.clear();
-        MenuPrincipal.campos.clear();
-        
-        tablaSeleccionada="";
-        tablaDEstinoSeleccionada="";
-        Consulta="";
-        
+ 
         cmbTablas.removeAllItems();
         cmbTablasDestino.removeAllItems();
         txaConsultaSQL.setText("");
@@ -594,7 +589,7 @@ public class FormularioETL extends javax.swing.JFrame {
                 MenuPrincipal.InserccionesETL.add(fila);
                 filaCampos.add(camposSelectOrigenOrdenFinal.toString());
                 MenuPrincipal.camposSelectOrigenETL.add(filaCampos);
-                dispose();
+                
 
                 
                 
@@ -613,7 +608,7 @@ public class FormularioETL extends javax.swing.JFrame {
                 System.out.println("Campos de origen: " + (MenuPrincipal.camposSelectOrigenETL.get(0) != null ? MenuPrincipal.camposSelectOrigenETL.get(0).toString() : "Lista vacía o nula"));
 
 
-                dispose();
+               
                 
                 
                  
@@ -621,12 +616,12 @@ public class FormularioETL extends javax.swing.JFrame {
             
             if(tipoT.equals("Dimension")){
                  MenuPrincipal.listDimensiones.addElement(NombreETL);
-                 MenuPrincipal.jlsListaDimensiones.setModel( MenuPrincipal.listDimensiones);
+                 MenuPrincipal.jlsListaDimensiones.setModel(MenuPrincipal.listDimensiones);
             }else{
                  MenuPrincipal.listHechos.addElement(NombreETL);
                  MenuPrincipal.jListaHechos.setModel(MenuPrincipal.listHechos);
             }
-           
+           dispose();
            
              //inputCb = JOptionPane.showConfirmDialog(this,tipoTabla, "Seleccione un tipo",JOptionPane.DEFAULT_OPTION);
             
