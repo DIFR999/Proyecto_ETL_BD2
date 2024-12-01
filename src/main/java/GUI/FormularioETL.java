@@ -58,7 +58,7 @@ public class FormularioETL extends javax.swing.JFrame {
      */
     public FormularioETL() {
         initComponents();
-        LimpiarVariables();
+       
         cmbTablas.setEnabled(true);
         txaConsultaSQL.setEnabled(false);
         cmbTablas.setEnabled(false);
@@ -574,6 +574,7 @@ public class FormularioETL extends javax.swing.JFrame {
     private void btnCrearETLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearETLActionPerformed
           IngresarDatosDestino CrearInsercion = new IngresarDatosDestino();
           ArrayList<String> fila = new ArrayList<>();
+          ArrayList<String> filaCampos = new ArrayList<>();
           String CosultaInsert;
           
           
@@ -588,8 +589,11 @@ public class FormularioETL extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Se creo el ETL correctamente");
                 fila.add(tipoT);
                 fila.add(NombreETL);
+                fila.add(tablaSeleccionada);
                 fila.add(CosultaInsert);
                 MenuPrincipal.InserccionesETL.add(fila);
+                filaCampos.add(camposSelectOrigenOrdenFinal.toString());
+                MenuPrincipal.CamposOrigenSelecTFinal.add(filaCampos);
                 dispose();
 
                 
@@ -602,8 +606,12 @@ public class FormularioETL extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Se creo el ETL correctamente");
                 fila.add(tipoT);
                 fila.add(NombreETL);
+                fila.add(Consulta);
                 fila.add(CosultaInsert);
                 MenuPrincipal.InserccionesETL.add(fila);
+                MenuPrincipal.CamposOrigenSelecTFinal.add(camposSelectOrigenOrdenFinal);
+                System.out.println("Campos de origen: " + (MenuPrincipal.CamposOrigenSelecTFinal.get(0) != null ? MenuPrincipal.CamposOrigenSelecTFinal.get(0).toString() : "Lista vacía o nula"));
+
                 LimpiarVariables();
 
                 dispose();

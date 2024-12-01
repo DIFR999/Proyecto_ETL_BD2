@@ -369,10 +369,10 @@ public class AsignacionesMapeo extends javax.swing.JFrame {
                 FormularioETL.camposSelectDestinoOrdenFinal.add(FormularioETL.camposSelectDestinoOrden.get(i).getColumnName());
              }
              
-             // MenuPrincipal.CamposOrigenSelecTFinal.add(FormularioETL.camposSelectOrigenOrdenFinal);
-                  // Depuración para ArrayList camposDestino
+              //MenuPrincipal.CamposOrigenSelecTFinal.add(FormularioETL.camposSelectOrigenOrdenFinal);
+           // Depuración para ArrayList camposDestino
             System.out.println("Campos de destino: " + (FormularioETL.camposSelectDestinoOrdenFinal != null ? FormularioETL.camposSelectDestinoOrdenFinal.toString() : "Lista vacía o nula"));
-    
+
         // Depuración para ArrayList camposOrigen
         System.out.println("Campos de origen: " + (FormularioETL.camposSelectOrigenOrdenFinal != null ? FormularioETL.camposSelectOrigenOrdenFinal.toString() : "Lista vacía o nula"));
             JOptionPane.showMessageDialog(this, "Guardado mapeo");    

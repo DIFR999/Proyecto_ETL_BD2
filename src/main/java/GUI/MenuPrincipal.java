@@ -39,7 +39,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
    
     
    
-   // public static ArrayList<ArrayList<String>> CamposOrigenSelecTFinal = new ArrayList<>();
+    public static ArrayList<ArrayList<String>> CamposOrigenSelecTFinal = new ArrayList<>();
     public static frmConexionOrigen frmCONOR = new frmConexionOrigen();
     
     
@@ -59,6 +59,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
      */
     public MenuPrincipal() {
         initComponents();
+
         
       
     }
@@ -263,6 +264,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void btnEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEjecutarActionPerformed
         IngresarDatosDestino EjecutarConsulta = new IngresarDatosDestino();
         String ConsultaInserccion;
+        String TablaOrigen;
+        String CamposOrigen;
         try{
             if(InserccionesETL.isEmpty()){
             JOptionPane.showMessageDialog(this, "DEBER TENER CREANDO A QUE SEA UN TABLA DE HECHOS Y UNA TABLA DE DIMENSIONES");
@@ -271,16 +274,30 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 
                 if(fromTable){
                     for(int j = 0; j<InserccionesETL.size();j++){
-                        ConsultaInserccion = InserccionesETL.get(j).get(InserccionesETL.get(j).size()-1);
-                        EjecutarConsulta.ejecutarInsercion(ConexionDestino.conDestino, CredecialesConexion.conOrigen, ConsultaInserccion,
-                            FormularioETL.tablaSeleccionada,true, FormularioETL.camposSelectOrigenOrdenFinal);
-                }
-                }else{
-                    for(int j = 0; j<InserccionesETL.size();j++){
-                        ConsultaInserccion = InserccionesETL.get(j).get(InserccionesETL.get(j).size()-1);
+                        TablaOrigen = InserccionesETL.get(j).get(2).toString();
+                        
+                         JOptionPane.showMessageDialog(this, "TABLA ORIGEN: "+ TablaOrigen);
+                        JOptionPane.showMessageDialog(this, "Campos ORIGEN: "+ CamposOrigenSelecTFinal.get(j).toString());
+
+                        ConsultaInserccion = InserccionesETL.get(j).get(3).toString();
+                            JOptionPane.showMessageDialog(this, "Campos Origen: "+ CamposOrigenSelecTFinal.get(j).toString());
+
 
                         EjecutarConsulta.ejecutarInsercion(ConexionDestino.conDestino, CredecialesConexion.conOrigen, ConsultaInserccion,
-                                FormularioETL.Consulta,false, FormularioETL.camposSelectOrigenOrdenFinal);
+                            TablaOrigen,true,CamposOrigenSelecTFinal.get(j));
+                }
+                }else{
+                                    System.out.println("Campos de origen: " + (MenuPrincipal.CamposOrigenSelecTFinal.get(0) != null ? MenuPrincipal.CamposOrigenSelecTFinal.get(0).toString() : "Lista vacía o nula"));
+
+                    for(int j = 0; j<InserccionesETL.size();j++){
+                        TablaOrigen = InserccionesETL.get(j).get(2);
+                        ConsultaInserccion = InserccionesETL.get(j).get(2).toString();
+                        
+                           JOptionPane.showMessageDialog(this, "TABLA ORIGEN: "+ TablaOrigen);
+                        JOptionPane.showMessageDialog(this, "Campos ORIGEN: "+ CamposOrigenSelecTFinal.get(j).toString());
+
+                       EjecutarConsulta.ejecutarInsercion(ConexionDestino.conDestino, CredecialesConexion.conOrigen, ConsultaInserccion,
+                              TablaOrigen,false, CamposOrigenSelecTFinal.get(j));
                 }
                 }
                 
