@@ -72,16 +72,7 @@ public String prepararInsercion(Connection connOrg, ArrayList<String> camposDest
 }
 public int ejecutarInsercion(Connection connDes, Connection connOrg, String consultaPreparada, 
                              String tableOrigen, boolean fromTable, ArrayList<String> camposOrigen) {
-    // Mensajes de depuración para verificar los parámetros del método
-    System.out.println("Depuración - Parámetros iniciales del método:");
-    System.out.println("-------------------------------------------------");
-    System.out.println("Conexión destino (connDes): " + (connDes != null ? "Conexión válida" : "Conexión nula"));
-    System.out.println("Conexión origen (connOrg): " + (connOrg != null ? "Conexión válida" : "Conexión nula"));
-    System.out.println("Consulta preparada: " + consultaPreparada);
-    System.out.println("Tabla de origen: " + tableOrigen);
-    System.out.println("Usar FROM en consulta: " + fromTable);
-    System.out.println("Campos de origen: " + (camposOrigen != null ? String.join(", ", camposOrigen) : "Ninguno"));
-    System.out.println("-------------------------------------------------");
+    
     int cantInsert = 0;
     String ConsultaDesdeFROM = null;
     int indexFrom = tableOrigen.toUpperCase().indexOf("FROM");
