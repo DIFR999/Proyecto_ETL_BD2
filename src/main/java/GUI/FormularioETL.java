@@ -485,7 +485,7 @@ public class FormularioETL extends javax.swing.JFrame {
             }
          }else if(jrbConsulta.isSelected()==true){
             try {	
-                String consultaSQL =txaConsultaSQL.getText();
+                String consultaSQL =txaConsultaSQL.getText().replaceAll("\\s+", " ").trim();
                 Consulta = consultaSQL;
                 MenuPrincipal.campos = MenuPrincipal.camposPorTabla.obtenerCamposConsulta(CredecialesConexion.conOrigen, consultaSQL);
                 if(txaConsultaSQL.getText()==null ||txaConsultaSQL.getText().isEmpty() ){

@@ -68,78 +68,83 @@ public String prepararInsercion(Connection connOrg, ArrayList<String> camposDest
     System.out.println("Consulta preparada: " + consultaPreparada);
     return consultaPreparada;
 }
-public int ejecutarInsercion(Connection connDes, Connection connOrg, String consultaPreparada, 
+public int ejecutarInsercion(Connection connDes, Connection connOrg, String consultaPreparada,
                              String tableOrigen, boolean fromTable, ArrayList<String> camposOrigen) throws SQLException {
     int cantInsert = 0;
     String ConsultaDesdeFROM = null;
+
+    // Mensajes de depuración para ver los parámetros al inicio
+    System.out.println("Conexión de destino: " + connDes);
+    System.out.println("Conexión de origen: " + connOrg);
+    System.out.println("Consulta preparada: " + consultaPreparada);
+    System.out.println("Tabla de origen: " + tableOrigen);
+    System.out.println("Desde tabla: " + fromTable);
+    System.out.println("Campos de origen: " + camposOrigen);
+
+    // Obtener la parte de la consulta desde "FROM"
     int indexFrom = tableOrigen.toUpperCase().indexOf("FROM");
     if (indexFrom != -1) {
-        ConsultaDesdeFROM = tableOrigen.substring(indexFrom); // Retorna la parte de la consulta a partir de "FROM"
+        ConsultaDesdeFROM = tableOrigen.substring(indexFrom);
+        System.out.println("Consulta desde 'FROM': " + ConsultaDesdeFROM);
     }
 
-    try (PreparedStatement stmtOrg = connOrg.prepareStatement(
-            fromTable ? "SELECT " + String.join(", ", camposOrigen) + " FROM " + tableOrigen 
-                      : "SELECT " + String.join(", ", camposOrigen) + " " + ConsultaDesdeFROM);
+    // **Primera Parte: Crear la consulta para el origen**
+    String consultaOrigen;
+    if (fromTable) {
+        consultaOrigen = "SELECT " + String.join(", ", camposOrigen) + " FROM " + tableOrigen;
+    } else {
+        consultaOrigen = "SELECT " + String.join(", ", camposOrigen) + " " + ConsultaDesdeFROM;
+    }
+    System.out.println("Consulta para origen: " + consultaOrigen);
+
+    // Bloque try-with-resources para manejar los recursos
+    try (PreparedStatement stmtOrg = connOrg.prepareStatement(consultaOrigen);
          ResultSet rsOrg = stmtOrg.executeQuery();
          PreparedStatement stmtInsert = connDes.prepareStatement(consultaPreparada)) {
 
-        // Verificar cuántas columnas tiene el ResultSet
+        // **Segunda Parte: Verificar columnas en el ResultSet**
         int columnCount = rsOrg.getMetaData().getColumnCount();
+        System.out.println("Número de columnas en el ResultSet: " + columnCount);
 
-        // Si no hay datos en el ResultSet, regresar 0
+        // Si no hay datos, regresar 0
         if (!rsOrg.isBeforeFirst()) {
+            System.out.println("No se encontraron filas en el ResultSet.");
             return 0;
         }
 
-        // Iterar sobre los resultados de la consulta de origen
+        // **Tercera Parte: Iterar sobre los resultados y realizar inserciones**
         while (rsOrg.next()) {
+            System.out.println("Procesando una fila...");
 
-            // Iterar por todas las columnas
+            // Iterar por cada columna para insertar valores
             for (int i = 1; i <= columnCount; i++) {
                 try {
-                    // Obtener el nombre de la columna
                     String columnName = rsOrg.getMetaData().getColumnName(i);
-                    // Mostrar nombre de la columna y su valor
                     System.out.println("Columna: " + columnName + ", Valor: " + rsOrg.getObject(i));
-
-                    // Verificar si el tipo de columna es DATE
-                    if (rsOrg.getMetaData().getColumnType(i) == java.sql.Types.DATE) {
-                        stmtInsert.setDate(i, rsOrg.getDate(i));
-                    } else if (rsOrg.getMetaData().getColumnType(i) == java.sql.Types.TIMESTAMP) {
-                        stmtInsert.setTimestamp(i, rsOrg.getTimestamp(i)); // Manejar tipo TIMESTAMP
-                    } else {
-                        stmtInsert.setObject(i, rsOrg.getObject(i)); // Otros tipos de datos
-                    }
+                    stmtInsert.setObject(i, rsOrg.getObject(i)); // Configurar valores
                 } catch (SQLException e) {
-                    // Mostrar el error con la columna específica que causó el problema
                     System.err.println("Error en la columna " + i + " (" + rsOrg.getMetaData().getColumnName(i) + "): " + e.getMessage());
-                    e.printStackTrace(); // Mostrar detalles del error
+                    e.printStackTrace();
                 }
             }
 
-         
-
-            // Ejecutar la inserción y contar filas afectadas
+            // Ejecutar la inserción y verificar filas afectadas
             int filasAfectadas = stmtInsert.executeUpdate();
-                System.out.println("Cantidad de inserciones realizadas: " + filasAfectadas);
+            System.out.println("Cantidad de inserciones realizadas: " + filasAfectadas);
 
             if (filasAfectadas > 0) {
                 cantInsert++;
-                System.out.println("Inserción exitosa para la fila, filas afectadas: " + filasAfectadas);
+                System.out.println("Inserción exitosa para la fila.");
             } else {
                 System.err.println("No se insertaron filas en esta iteración.");
             }
-
- 
-            
         }
     } catch (SQLException e) {
-         
         System.err.println("Error ejecutando inserción: " + e.getMessage());
-        e.printStackTrace(); // Mostrar detalles completos del error
+        e.printStackTrace();
     }
 
-    // Devolver la cantidad de inserciones realizadas
+    // **Cuarta Parte: Retornar resultado final**
     System.out.println("Cantidad de inserciones realizadas: " + cantInsert);
     return cantInsert;
 }

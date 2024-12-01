@@ -291,7 +291,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 }else{
 
                     for(int j = 0; j<InserccionesETL.size();j++){
-                        TablaOrigen = InserccionesETL.get(j).get(2);
+                        TablaOrigen = InserccionesETL.get(j).get(2).toString();
                         ConsultaInserccion = InserccionesETL.get(j).get(3).toString();
                         
 
