@@ -45,8 +45,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     
     
     //Lista de para el Jlist
-      DefaultListModel<String> listDimensiones = new DefaultListModel<>();
-      DefaultListModel<String> listHechos = new DefaultListModel<>();
+     DefaultListModel<String> listDimensiones = new DefaultListModel<>();
+     DefaultListModel<String> listHechos = new DefaultListModel<>();
 
 
    //VARIABLES GLOBALES
@@ -62,7 +62,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         initComponents();
         
         if(ConexionOrigen.getUsername()==null){
-            btnCrearETL.setEnabled(true);
+            btnCrearETL.setEnabled(false);
         }
     }
 
@@ -332,7 +332,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConexionOrigen;
-    public javax.swing.JButton btnCrearETL;
+    public static javax.swing.JButton btnCrearETL;
     private javax.swing.JButton btnEjecutar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
