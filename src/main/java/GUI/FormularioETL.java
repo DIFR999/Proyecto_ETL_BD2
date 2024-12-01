@@ -58,6 +58,7 @@ public class FormularioETL extends javax.swing.JFrame {
      */
     public FormularioETL() {
         initComponents();
+        LimpiarVariables();
         cmbTablas.setEnabled(true);
         txaConsultaSQL.setEnabled(false);
         cmbTablas.setEnabled(false);
@@ -134,14 +135,20 @@ public class FormularioETL extends javax.swing.JFrame {
     public void LimpiarVariables(){
         camposSelectOrigen.clear();
         camposSelectDestino.clear();
-        
+        camposSelectOrigenOrden.clear();
+        camposSelectDestinoOrden.clear();
         camposSelectDestinoOrdenFinal.clear();
         camposSelectOrigenOrdenFinal.clear();
+        MenuPrincipal.campos.clear();
         MenuPrincipal.campos.clear();
         
         tablaSeleccionada="";
         tablaDEstinoSeleccionada="";
         Consulta="";
+        
+        cmbTablas.removeAllItems();
+        cmbTablasDestino.removeAllItems();
+        txaConsultaSQL.setText("");
                 
     }
     /**
@@ -532,17 +539,10 @@ public class FormularioETL extends javax.swing.JFrame {
 
         }else{
            
-
-
             ConexionDestino guiConexionDestino = new ConexionDestino();      
             guiConexionDestino.setLocationRelativeTo(this);  // Centra la ventana con respecto a la ventana principal
             guiConexionDestino.setVisible(true);  // Mostrar la ventana
-
            
-
-            
-
-                 
             
         }        
     }//GEN-LAST:event_btnAgregarConexionDestinoActionPerformed

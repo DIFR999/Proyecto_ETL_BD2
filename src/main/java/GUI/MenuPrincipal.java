@@ -39,7 +39,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
    
     
    
-    public static ArrayList<ArrayList<String>> CamposOrigenSelecTFinal = new ArrayList<>();
+   // public static ArrayList<ArrayList<String>> CamposOrigenSelecTFinal = new ArrayList<>();
     public static frmConexionOrigen frmCONOR = new frmConexionOrigen();
     
     
@@ -273,14 +273,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     for(int j = 0; j<InserccionesETL.size();j++){
                         ConsultaInserccion = InserccionesETL.get(j).get(InserccionesETL.get(j).size()-1);
                         EjecutarConsulta.ejecutarInsercion(ConexionDestino.conDestino, CredecialesConexion.conOrigen, ConsultaInserccion,
-                            FormularioETL.tablaSeleccionada,true, CamposOrigenSelecTFinal.get(j));
+                            FormularioETL.tablaSeleccionada,true, FormularioETL.camposSelectOrigenOrdenFinal);
                 }
                 }else{
                     for(int j = 0; j<InserccionesETL.size();j++){
                         ConsultaInserccion = InserccionesETL.get(j).get(InserccionesETL.get(j).size()-1);
 
                         EjecutarConsulta.ejecutarInsercion(ConexionDestino.conDestino, CredecialesConexion.conOrigen, ConsultaInserccion,
-                                FormularioETL.Consulta,false, CamposOrigenSelecTFinal.get(j));
+                                FormularioETL.Consulta,false, FormularioETL.camposSelectOrigenOrdenFinal);
                 }
                 }
                 

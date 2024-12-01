@@ -210,7 +210,7 @@ public class ConexionDestino extends javax.swing.JFrame {
 
     private void btnVerificarCredencialesDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarCredencialesDestinoActionPerformed
         ConexionGBD conexion2 = new ConexionGBD();
-
+       
         String contraseniaDestino;
         // Solicitamos las credenciales de la conexión
         MenuPrincipal.conexionDestino = MenuPrincipal.conexiones.get(cmbConexionesDD.getSelectedIndex());
@@ -223,10 +223,12 @@ public class ConexionDestino extends javax.swing.JFrame {
             
             
             try{
+                 FormularioETL.cmbTablasDestino.removeAllItems();
+                 FormularioETL.tablasDestino.clear();
             FormularioETL.tablasDestino = FormularioETL.tablasPorConexionDestino.obtenerTablas(MenuPrincipal.conexionDestino.getUsername(), conDestino);
 
                 // MOSTRAMOS LA LISTA DE TABLAS QUE EL SCHEMA POSEE
-
+                
                  DefaultComboBoxModel modelTablasDestino =new DefaultComboBoxModel();
             
                   int i = 0;
