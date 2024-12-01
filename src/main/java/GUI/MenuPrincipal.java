@@ -41,7 +41,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
    
     public static ArrayList<ArrayList<String>> CamposOrigenSelecTFinal = new ArrayList<>();
     public static frmConexionOrigen frmCONOR = new frmConexionOrigen();
-    public static MenuPrincipal menu = new MenuPrincipal();
     
     
     //Lista de para el Jlist
@@ -61,9 +60,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public MenuPrincipal() {
         initComponents();
         
-        if(ConexionOrigen.getUsername()==null){
-            btnCrearETL.setEnabled(false);
-        }
+      
     }
 
     /**

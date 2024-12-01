@@ -122,13 +122,12 @@ public class CredecialesConexion extends javax.swing.JFrame {
             contraseniaOrigen = txtPasswordCredenciales.getText();
         try {
                 conOrigen = conexion.openConnection(MenuPrincipal.ConexionOrigen.getUsername(), contraseniaOrigen);
-                MenuPrincipal.btnCrearETL.setEnabled(true);
                 JOptionPane.showMessageDialog(this, "Conexion Exitosa");
                 dispose(); // Cierra la ventana actual
                 
                 
                   if(MenuPrincipal.ConexionOrigen.getUsername()!=null){
-                     MenuPrincipal.menu.btnCrearETL.setEnabled(false);
+                     MenuPrincipal.btnCrearETL.setEnabled(false);
                 }
                 MenuPrincipal.frmCONOR.dispose();
 
