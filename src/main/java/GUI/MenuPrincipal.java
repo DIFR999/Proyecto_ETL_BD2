@@ -282,9 +282,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
                         EjecutarConsulta.ejecutarInsercion(ConexionDestino.conDestino, CredecialesConexion.conOrigen, ConsultaInserccion,
                             TablaOrigen,true,camposSelectOrigenETL.get(j));
-                }
+                        
+                     }
+                        JOptionPane.showMessageDialog(this, "Se insertaron los datos al destino correctmante");
+   
+                    
                 }else{
-                     System.out.println("Campos de origen: " + (MenuPrincipal.camposSelectOrigenETL.get(0) != null ? MenuPrincipal.camposSelectOrigenETL.get(0).toString() : "Lista vacía o nula"));
 
                     for(int j = 0; j<InserccionesETL.size();j++){
                         TablaOrigen = InserccionesETL.get(j).get(2);
@@ -293,8 +296,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
                        EjecutarConsulta.ejecutarInsercion(ConexionDestino.conDestino, CredecialesConexion.conOrigen, ConsultaInserccion,
                               TablaOrigen,false, camposSelectOrigenETL.get(j));
+                    }
+                                    JOptionPane.showMessageDialog(this, "Se insertaron los datos al destino correctmante");
+
                 }
-                }
+                
                 
             } 
         }catch(Exception e){

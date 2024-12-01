@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 public class IngresarDatosDestino {
  
 public int ejecutarInsercion(Connection connDes, Connection connOrg, String consultaPreparada, 
-                             String tableOrigen, boolean fromTable, ArrayList<String> camposOrigen) {
+                             String tableOrigen, boolean fromTable, ArrayList<String> camposOrigen) throws SQLException {
     int cantInsert = 0;
     String ConsultaDesdeFROM = null;
     int indexFrom = tableOrigen.toUpperCase().indexOf("FROM");
@@ -75,6 +75,8 @@ public int ejecutarInsercion(Connection connDes, Connection connOrg, String cons
                     }
                 } catch (SQLException e) {
                     // Mostrar el error con la columna específica que causó el problema
+                    
+                      connDes.rollback();
                     System.err.println("Error al establecer parámetro para la columna " + i + " (" + rsOrg.getMetaData().getColumnName(i) + "): " + e.getMessage());
                     e.printStackTrace(); // Mostrar detalles del error
                 }
@@ -82,6 +84,7 @@ public int ejecutarInsercion(Connection connDes, Connection connOrg, String cons
 
             // Ejecutar la inserción y contar filas afectadas
             int filasAfectadas = stmtInsert.executeUpdate();
+                System.out.println("Cantidad de inserciones realizadas: " + filasAfectadas);
 
             if (filasAfectadas > 0) {
                 cantInsert++;
@@ -89,8 +92,12 @@ public int ejecutarInsercion(Connection connDes, Connection connOrg, String cons
             } else {
                 System.err.println("No se insertaron filas en esta iteración.");
             }
+            
+            // Confirmar la transacción si todo es exitoso
+            connDes.commit();
         }
     } catch (SQLException e) {
+          connDes.rollback();
         System.err.println("Error ejecutando inserción: " + e.getMessage());
         e.printStackTrace(); // Mostrar detalles completos del error
     }
