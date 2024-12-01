@@ -295,6 +295,9 @@ public class DataConversion extends javax.swing.JFrame {
         }else{
              FormularioETL.camposSelectOrigen.get(cmbCamposTran.getSelectedIndex()).lowerColumn();
         }
+        JOptionPane.showMessageDialog(this, "El campo se transformo en Minusculas correctamente");
+
+        
         
         
     }//GEN-LAST:event_btnMinusculaActionPerformed
@@ -305,7 +308,8 @@ public class DataConversion extends javax.swing.JFrame {
         }else{
              FormularioETL.camposSelectOrigen.get(cmbCamposTran.getSelectedIndex()).upperColumn();
         }
-      
+              JOptionPane.showMessageDialog(this, "El campo se transformo en Mayuscula correctamente");
+
     }//GEN-LAST:event_btnMayusculaActionPerformed
 
     private void cmbCamposTranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCamposTranActionPerformed
@@ -435,7 +439,7 @@ public class DataConversion extends javax.swing.JFrame {
 
                        MenuPrincipal.campos.get(cmbCamposTran.getSelectedIndex()).concatValues(campo2, txtAlias.getText());
 
-                       JOptionPane.showMessageDialog(this, "Se realizo correctamente "+  MenuPrincipal.campos.get(cmbCamposTran.getSelectedIndex()).getColumnNameConvert());
+                       JOptionPane.showMessageDialog(this, "Se realizo correctamente la concatenación de los campos "+  MenuPrincipal.campos.get(cmbCamposTran.getSelectedIndex()).getColumnNameConvert());
                     }else{
                         for (int i = 0; i < FormularioETL.camposSelectOrigen.size(); i++) {
                             if (FormularioETL.camposSelectOrigen.get(i).getColumnName().equals(cmbCamposTran.getSelectedItem().toString().split(" ")[0])) {
@@ -448,7 +452,7 @@ public class DataConversion extends javax.swing.JFrame {
 
                        FormularioETL.camposSelectOrigen.get(cmbCamposTran.getSelectedIndex()).concatValues(campo2, txtAlias.getText());
 
-                       JOptionPane.showMessageDialog(this, "Se realizo correctamente "+ FormularioETL.camposSelectOrigen.get(cmbCamposTran.getSelectedIndex()).getColumnNameConvert());
+                       JOptionPane.showMessageDialog(this, "Se realizo correctamente la concatenación de los campos "+ FormularioETL.camposSelectOrigen.get(cmbCamposTran.getSelectedIndex()).getColumnNameConvert());
                     }
                }else{
                     JOptionPane.showMessageDialog(this, "Ingrese un alias a concatenación");
@@ -460,7 +464,7 @@ public class DataConversion extends javax.swing.JFrame {
                         MenuPrincipal.campos.get(cmbCamposTran.getSelectedIndex()).Extraer(TipoExtraer, txtAlias.getText());
                         MenuPrincipal.campos.get(cmbCamposTran.getSelectedIndex()).setDataType(tipoDatosTraFecha);
 
-                          JOptionPane.showMessageDialog(this, "Se realizo correctamente La extracion "+  MenuPrincipal.campos.get(cmbCamposTran.getSelectedIndex()).getColumnNameConvert()
+                          JOptionPane.showMessageDialog(this, "Se realizo correctamente la extracion "+  MenuPrincipal.campos.get(cmbCamposTran.getSelectedIndex()).getColumnNameConvert()
                            + " " + MenuPrincipal.campos.get(cmbCamposTran.getSelectedIndex()).getDataType());
                        }else{
 

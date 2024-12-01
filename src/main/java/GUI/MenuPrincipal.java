@@ -12,6 +12,9 @@ import clases.IngresarDatosDestino;
 import java.awt.Dimension;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -40,8 +43,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public static frmConexionOrigen frmCONOR = new frmConexionOrigen();
     public static MenuPrincipal menu = new MenuPrincipal();
     
-
     
+    //Lista de para el Jlist
+      DefaultListModel<String> listDimensiones = new DefaultListModel<>();
+      DefaultListModel<String> listHechos = new DefaultListModel<>();
+
+
    //VARIABLES GLOBALES
    public static String UsuarioCOnexion;
    public static String UsuarioCOnexionDestino;
@@ -74,9 +81,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jlsListaDimensiones = new javax.swing.JList<>();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        jListaHechos = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnConexionOrigen = new javax.swing.JButton();
@@ -120,21 +127,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jList1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane3.setViewportView(jList1);
+        jlsListaDimensiones.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jScrollPane3.setViewportView(jlsListaDimensiones);
 
-        jList2.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane4.setViewportView(jList2);
+        jListaHechos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jScrollPane4.setViewportView(jListaHechos);
 
         jLabel1.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 18)); // NOI18N
         jLabel1.setText("Dimesiones");
@@ -242,7 +239,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCrearETLActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
+        
+        try {
+            if(CredecialesConexion.conOrigen!=null || ConexionDestino.conDestino!=null){
+                CredecialesConexion.conOrigen.close();
+                ConexionDestino.conDestino.close();
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dispose();
+       
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnConexionOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConexionOrigenActionPerformed
@@ -329,11 +337,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
+    public static javax.swing.JList<String> jListaHechos;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    public static javax.swing.JList<String> jlsListaDimensiones;
     // End of variables declaration//GEN-END:variables
 }

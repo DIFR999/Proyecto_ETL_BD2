@@ -62,7 +62,7 @@ public class FrmEscogerCampos extends javax.swing.JFrame {
         lbltabla = new javax.swing.JLabel();
         btnGuardarCampos = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
         jLabel1.setText("CAMPOS DE LA ");
@@ -94,7 +94,7 @@ public class FrmEscogerCampos extends javax.swing.JFrame {
         lbltabla.setText("TABLA");
 
         btnGuardarCampos.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
-        btnGuardarCampos.setText("Guardar campos");
+        btnGuardarCampos.setText("Guardar Y salir");
         btnGuardarCampos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarCamposActionPerformed(evt);
@@ -187,6 +187,7 @@ public class FrmEscogerCampos extends javax.swing.JFrame {
 
                      jlsCamposSeleccionados.setModel(listModel);
                      FormularioETL.camposSelectOrigen.add(MenuPrincipal.campos.get(indexCampo));
+                     btnGuardarCampos.setEnabled(true);
 
                 }else{
                     JOptionPane.showMessageDialog(this, "Ya selecciono ese campo");
@@ -195,10 +196,7 @@ public class FrmEscogerCampos extends javax.swing.JFrame {
                 
                
 
-           System.out.println("Contenido de listModel:");
-            for (int i = 0; i < listModel.getSize(); i++) {
-                System.out.println(listModel.getElementAt(i));
-            }
+           
                 
             }   
             
@@ -214,7 +212,7 @@ public class FrmEscogerCampos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarCActionPerformed
 
     private void btnGuardarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCamposActionPerformed
-        // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_btnGuardarCamposActionPerformed
 
     /**
@@ -224,7 +222,7 @@ public class FrmEscogerCampos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarC;
-    private javax.swing.JButton btnGuardarCampos;
+    public static javax.swing.JButton btnGuardarCampos;
     private javax.swing.JComboBox<String> cmbCamposTablaOrigen;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
