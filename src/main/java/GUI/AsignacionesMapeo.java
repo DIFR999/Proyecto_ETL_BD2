@@ -22,9 +22,15 @@ public class AsignacionesMapeo extends javax.swing.JFrame {
     public AsignacionesMapeo() {
         initComponents();
          //Si no se selecciono campos
+                
+         
                  DefaultComboBoxModel camposOrigen =new DefaultComboBoxModel();
                  DefaultComboBoxModel camposDestino = new DefaultComboBoxModel();
                  
+                 FormularioETL.camposSelectOrigenOrdenFinal.clear();
+                  FormularioETL.camposSelectDestinoOrdenFinal.clear();
+                  listModelDestino.removeAllElements();
+                  listModelOrigen.removeAllElements();
                  
             try{
                 if(FormularioETL.camposSelectOrigen.isEmpty()){
@@ -351,7 +357,7 @@ public class AsignacionesMapeo extends javax.swing.JFrame {
 
     private void btnGuardarMapeoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarMapeoActionPerformed
         
-        if((FormularioETL.camposSelectDestinoOrden.size() < FormularioETL.camposSelectDestino.size())){
+        if((FormularioETL.camposSelectDestinoOrden.size() < FormularioETL.camposSelectDestino.size())&&(FormularioETL.tipoT.equals("Dimension"))){
             JOptionPane.showMessageDialog(this, "Antes, debes mapea todos los campos del destino");    
 
         }else{ // Aqui cuando todos los campos esta mapeando, creamos COnfirmamos el mapeo

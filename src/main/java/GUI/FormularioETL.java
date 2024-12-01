@@ -58,13 +58,15 @@ public class FormularioETL extends javax.swing.JFrame {
      */
     public FormularioETL() {
         initComponents();
-       
+      
+           
         cmbTablas.setEnabled(true);
         txaConsultaSQL.setEnabled(false);
         cmbTablas.setEnabled(false);
         btnEscogerCampos.setEnabled(false);
         btnTransformar.setEnabled(false);
         btnAsignacionesCampos.setEnabled(false);
+        btnCrearETL.setEnabled(false);
         
         if(MenuPrincipal.conexiones.isEmpty()){
              btnAgregarConexionDestino.setEnabled(false);
@@ -495,7 +497,7 @@ public class FormularioETL extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "La consulta es correcta");
                         btnEscogerCampos.setEnabled(true);
                           btnTransformar.setEnabled(true);
-                          Consulta = txaConsultaSQL.getText().trim();
+                           Consulta = txaConsultaSQL.getText().replaceAll("\\s+"," ").trim();
                             MenuPrincipal.fromTable = false;
                     } else {
                         JOptionPane.showMessageDialog(this, "La consulta no produjo resultados válidos. Intente nuevamente.");
