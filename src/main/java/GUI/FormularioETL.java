@@ -500,7 +500,7 @@ public class FormularioETL extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "La consulta es correcta");
                         btnEscogerCampos.setEnabled(true);
                           btnTransformar.setEnabled(true);
-                          Consulta = txaConsultaSQL.getText();
+                          Consulta = txaConsultaSQL.getText().trim();
                             MenuPrincipal.fromTable = false;
                     } else {
                         JOptionPane.showMessageDialog(this, "La consulta no produjo resultados válidos. Intente nuevamente.");
@@ -593,7 +593,7 @@ public class FormularioETL extends javax.swing.JFrame {
                 fila.add(CosultaInsert);
                 MenuPrincipal.InserccionesETL.add(fila);
                 filaCampos.add(camposSelectOrigenOrdenFinal.toString());
-                MenuPrincipal.CamposOrigenSelecTFinal.add(filaCampos);
+                MenuPrincipal.camposSelectOrigenETL.add(filaCampos);
                 dispose();
 
                 
@@ -609,10 +609,9 @@ public class FormularioETL extends javax.swing.JFrame {
                 fila.add(Consulta);
                 fila.add(CosultaInsert);
                 MenuPrincipal.InserccionesETL.add(fila);
-                MenuPrincipal.CamposOrigenSelecTFinal.add(camposSelectOrigenOrdenFinal);
-                System.out.println("Campos de origen: " + (MenuPrincipal.CamposOrigenSelecTFinal.get(0) != null ? MenuPrincipal.CamposOrigenSelecTFinal.get(0).toString() : "Lista vacía o nula"));
+                MenuPrincipal.camposSelectOrigenETL.add(camposSelectOrigenOrdenFinal);
+                System.out.println("Campos de origen: " + (MenuPrincipal.camposSelectOrigenETL.get(0) != null ? MenuPrincipal.camposSelectOrigenETL.get(0).toString() : "Lista vacía o nula"));
 
-                LimpiarVariables();
 
                 dispose();
                 

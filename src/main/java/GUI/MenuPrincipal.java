@@ -35,11 +35,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public static ArrayList<CampoDTO> campos = new ArrayList<CampoDTO>();
     
     //GUARDAR TODAS INSERCCIONES DE UN DATAMART(DIMENESIONES)
-    public static ArrayList<ArrayList<String>> InserccionesETL = new ArrayList<>(); ;
-   
+    public static ArrayList<ArrayList<String>> InserccionesETL = new ArrayList<>(); 
+       public static ArrayList<ArrayList<String>> camposSelectOrigenETL = new ArrayList<>();
+
     
    
-    public static ArrayList<ArrayList<String>> CamposOrigenSelecTFinal = new ArrayList<>();
     public static frmConexionOrigen frmCONOR = new frmConexionOrigen();
     
     
@@ -276,28 +276,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     for(int j = 0; j<InserccionesETL.size();j++){
                         TablaOrigen = InserccionesETL.get(j).get(2).toString();
                         
-                         JOptionPane.showMessageDialog(this, "TABLA ORIGEN: "+ TablaOrigen);
-                        JOptionPane.showMessageDialog(this, "Campos ORIGEN: "+ CamposOrigenSelecTFinal.get(j).toString());
 
                         ConsultaInserccion = InserccionesETL.get(j).get(3).toString();
-                            JOptionPane.showMessageDialog(this, "Campos Origen: "+ CamposOrigenSelecTFinal.get(j).toString());
 
 
                         EjecutarConsulta.ejecutarInsercion(ConexionDestino.conDestino, CredecialesConexion.conOrigen, ConsultaInserccion,
-                            TablaOrigen,true,CamposOrigenSelecTFinal.get(j));
+                            TablaOrigen,true,camposSelectOrigenETL.get(j));
                 }
                 }else{
-                                    System.out.println("Campos de origen: " + (MenuPrincipal.CamposOrigenSelecTFinal.get(0) != null ? MenuPrincipal.CamposOrigenSelecTFinal.get(0).toString() : "Lista vacía o nula"));
+                     System.out.println("Campos de origen: " + (MenuPrincipal.camposSelectOrigenETL.get(0) != null ? MenuPrincipal.camposSelectOrigenETL.get(0).toString() : "Lista vacía o nula"));
 
                     for(int j = 0; j<InserccionesETL.size();j++){
                         TablaOrigen = InserccionesETL.get(j).get(2);
                         ConsultaInserccion = InserccionesETL.get(j).get(2).toString();
                         
-                           JOptionPane.showMessageDialog(this, "TABLA ORIGEN: "+ TablaOrigen);
-                        JOptionPane.showMessageDialog(this, "Campos ORIGEN: "+ CamposOrigenSelecTFinal.get(j).toString());
 
                        EjecutarConsulta.ejecutarInsercion(ConexionDestino.conDestino, CredecialesConexion.conOrigen, ConsultaInserccion,
-                              TablaOrigen,false, CamposOrigenSelecTFinal.get(j));
+                              TablaOrigen,false, camposSelectOrigenETL.get(j));
                 }
                 }
                 
